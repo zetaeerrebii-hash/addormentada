@@ -10,66 +10,47 @@
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#1B1749;
-  --night:#201C4E;
-  --night2:#2C2766;
-  --cream:#FFF4E6;
-  --sky:#CDE8FF;
-  --rosa:#FF8FA8;
-  --giallo:#FFD36E;
-  --menta:#8CE0C8;
-  --lilla:#B49BFF;
-  --tondo:"Zen Maru Gothic",-apple-system,system-ui,sans-serif;
-  --mono:"DM Mono",ui-monospace,monospace;
-  --ombra:4px 4px 0 var(--ink);
-  --ombra-s:3px 3px 0 var(--ink);
+  --ink:#1B1749;--night:#201C4E;--night2:#2C2766;--cream:#FFF4E6;--sky:#CDE8FF;
+  --rosa:#FF8FA8;--giallo:#FFD36E;--menta:#8CE0C8;--lilla:#B49BFF;
+  --tondo:"Zen Maru Gothic",-apple-system,system-ui,sans-serif;--mono:"DM Mono",ui-monospace,monospace;
+  --ombra:4px 4px 0 var(--ink);--ombra-s:3px 3px 0 var(--ink);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
-body{
-  margin:0;background:var(--cream);color:var(--ink);
-  font-family:var(--tondo);font-weight:400;font-size:16px;line-height:1.55;
-  overscroll-behavior:none;
-  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--tondo);font-weight:400;
+  font-size:16px;line-height:1.55;overscroll-behavior:none;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
 .screen{display:none;min-height:100dvh;flex-direction:column;position:relative;overflow:hidden}
 .screen.on{display:flex}
 .wrap{width:100%;max-width:540px;margin:0 auto;padding:22px 20px 32px;flex:1;display:flex;flex-direction:column;position:relative;z-index:2}
-
 h1{font-weight:900;font-size:clamp(34px,10vw,46px);letter-spacing:-.03em;margin:0;line-height:1.05}
 h1 em{font-style:normal;color:var(--rosa);text-shadow:2px 2px 0 var(--ink)}
 h2{font-weight:700;font-size:21px;margin:0 0 8px;letter-spacing:-.01em}
 p{margin:0 0 14px;font-size:14.5px;color:#4A4485}
 .tag{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
   background:var(--giallo);border:2px solid var(--ink);border-radius:99px;padding:3px 11px;box-shadow:var(--ombra-s)}
-.tag.mint{background:var(--menta)} .tag.lilla{background:var(--lilla)} .tag.rosa{background:var(--rosa)}
-
-/* ── nuvole di sfondo ── */
+.tag.mint{background:var(--menta)}.tag.lilla{background:var(--lilla)}
 .drift{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
 .drift svg{position:absolute;opacity:.5}
 .d1{width:150px;top:8%;animation:float 46s linear infinite}
 .d2{width:110px;top:44%;animation:float 64s linear infinite;animation-delay:-20s;opacity:.35!important}
 .d3{width:90px;top:74%;animation:float 54s linear infinite;animation-delay:-38s;opacity:.4!important}
 @keyframes float{from{transform:translateX(-40vw)}to{transform:translateX(120vw)}}
-
-/* ── bottoni pop ── */
 button{font-family:var(--tondo);cursor:pointer}
 .btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px 18px;
   background:var(--rosa);color:var(--ink);border:2.5px solid var(--ink);border-radius:99px;
   font-weight:700;font-size:16px;box-shadow:var(--ombra);transition:transform .1s,box-shadow .1s}
 .btn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
-.btn.mint{background:var(--menta)} .btn.giallo{background:var(--giallo)} .btn.sky{background:var(--sky)}
-.btn[disabled]{background:#E7E1D6;color:#8A85A8;box-shadow:var(--ombra);cursor:not-allowed}
+.btn.mint{background:var(--menta)}.btn.giallo{background:var(--giallo)}.btn.sky{background:var(--sky)}
+.btn[disabled]{background:#E7E1D6;color:#8A85A8;cursor:not-allowed}
 .btn .ic{width:30px;height:26px;flex:none}
-.mini{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;padding:7px 13px;background:#fff;
-  border:2px solid var(--ink);border-radius:99px;box-shadow:2px 2px 0 var(--ink);color:var(--ink)}
+.mini{font-family:var(--mono);font-size:11.5px;padding:7px 13px;background:#fff;border:2px solid var(--ink);
+  border-radius:99px;box-shadow:2px 2px 0 var(--ink);color:var(--ink)}
 .mini:active{transform:translate(2px,2px);box-shadow:none}
 .stack>*+*{margin-top:12px}
-
-/* ── campi ── */
-textarea{width:100%;min-height:92px;resize:vertical;background:#fff;color:var(--ink);
-  border:2.5px solid var(--ink);border-radius:16px;padding:12px 14px;font-family:var(--mono);
-  font-size:11.5px;line-height:1.5;word-break:break-all;box-shadow:var(--ombra-s)}
+textarea{width:100%;min-height:92px;resize:vertical;background:#fff;color:var(--ink);border:2.5px solid var(--ink);
+  border-radius:16px;padding:12px 14px;font-family:var(--mono);font-size:11.5px;line-height:1.5;
+  word-break:break-all;box-shadow:var(--ombra-s)}
 textarea::placeholder{color:#A9A3C4}
 textarea:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--lilla);outline-offset:3px}
 label.field{display:block;margin-bottom:10px}
@@ -78,16 +59,18 @@ label.field span{display:block;margin-bottom:7px;font-family:var(--mono);font-si
 .check{display:flex;gap:10px;align-items:center;font-size:14px;background:#fff;border:2px solid var(--ink);
   border-radius:99px;padding:9px 15px;box-shadow:2px 2px 0 var(--ink);width:fit-content}
 .check input{width:17px;height:17px;accent-color:var(--rosa)}
-
-/* ── passi ── */
+/* segmenti */
+.seg{display:flex;gap:7px;flex-wrap:wrap}
+.seg button{flex:1;min-width:78px;padding:9px 8px;background:#fff;border:2.5px solid var(--ink);border-radius:99px;
+  font-size:13px;font-weight:500;box-shadow:2px 2px 0 var(--ink)}
+.seg button.sel{background:var(--lilla)}
+.seg button:active{transform:translate(2px,2px);box-shadow:none}
 .step{display:flex;gap:13px;padding:16px 0}
 .step+.step{border-top:2.5px dashed #D8D1F0}
 .step-n{width:29px;height:29px;flex:none;border-radius:50%;background:var(--lilla);border:2.5px solid var(--ink);
   display:grid;place-items:center;font-weight:700;font-size:13px;box-shadow:2px 2px 0 var(--ink);margin-top:2px}
 .step:nth-of-type(2) .step-n{background:var(--menta)}
 .step-b{flex:1;min-width:0}
-
-.pane{background:#fff;border:2.5px solid var(--ink);border-radius:22px;padding:16px;box-shadow:var(--ombra)}
 .statusbar{display:flex;align-items:center;gap:9px;margin-bottom:16px}
 .chip{display:flex;align-items:center;gap:7px;background:#fff;border:2px solid var(--ink);border-radius:99px;
   padding:5px 12px;box-shadow:2px 2px 0 var(--ink);font-family:var(--mono);font-size:10.5px;
@@ -97,8 +80,6 @@ label.field span{display:block;margin-bottom:7px;font-family:var(--mono);font-si
 .dot.warn{background:var(--rosa)}
 @keyframes pulse{0%,100%{opacity:.45}50%{opacity:1}}
 .spacer{flex:1}
-
-/* ── video ── */
 .videobox{margin-top:14px;background:var(--ink);border:2.5px solid var(--ink);border-radius:18px;overflow:hidden;
   box-shadow:var(--ombra);transition:max-height .4s,opacity .4s,margin .4s;max-height:60vh}
 video{display:block;width:100%;max-height:42vh;object-fit:contain;background:#100E2A}
@@ -106,25 +87,22 @@ video{display:block;width:100%;max-height:42vh;object-fit:contain;background:#10
 .err{color:#D6385C;font-weight:500;font-size:13.5px;margin-top:10px;display:none}
 .err.on{display:block}
 .hide{display:none!important}
-
-/* ══ SCHERMO MONITOR (notte) ══ */
+/* barra livello locale (stanza) */
+.vu{height:14px;border:2.5px solid var(--ink);border-radius:99px;background:#fff;overflow:hidden;box-shadow:2px 2px 0 var(--ink)}
+.vu i{display:block;height:100%;width:0%;background:var(--menta);transition:width .1s}
+/* monitor notturno */
 #s-parent.night-sky{background:var(--night)}
 #s-parent.night-sky p{color:#B9B3E8}
-#s-parent.night-sky h2,#s-parent.night-sky h1{color:#fff}
+#s-parent.night-sky h2{color:#fff}
 #s-parent.night-sky .chip{background:var(--night2);color:#fff;border-color:#fff;box-shadow:2px 2px 0 rgba(0,0,0,.4)}
 .stars{position:absolute;inset:0;z-index:1;pointer-events:none;
-  background-image:radial-gradient(1.6px 1.6px at 12% 18%,#fff,transparent),
-                   radial-gradient(1.4px 1.4px at 78% 12%,#fff,transparent),
-                   radial-gradient(1.8px 1.8px at 34% 42%,#FFD36E,transparent),
-                   radial-gradient(1.4px 1.4px at 88% 58%,#fff,transparent),
-                   radial-gradient(1.5px 1.5px at 22% 72%,#fff,transparent),
-                   radial-gradient(1.7px 1.7px at 62% 86%,#B49BFF,transparent);
+  background-image:radial-gradient(1.6px 1.6px at 12% 18%,#fff,transparent),radial-gradient(1.4px 1.4px at 78% 12%,#fff,transparent),
+  radial-gradient(1.8px 1.8px at 34% 42%,#FFD36E,transparent),radial-gradient(1.4px 1.4px at 88% 58%,#fff,transparent),
+  radial-gradient(1.5px 1.5px at 22% 72%,#fff,transparent),radial-gradient(1.7px 1.7px at 62% 86%,#B49BFF,transparent);
   opacity:.75;animation:twinkle 5s ease-in-out infinite}
 @keyframes twinkle{0%,100%{opacity:.45}50%{opacity:.9}}
-
-/* ── eroe: l'animale che dorme sulla nuvola ── */
-.hero{position:relative;display:grid;place-items:center;padding:6px 0 0;z-index:2}
-#p-hero{width:min(78vw,300px);height:auto;display:block;
+.hero{position:relative;display:grid;place-items:center;padding:4px 0 0;z-index:2}
+#p-hero{width:min(70vw,270px);height:auto;display:block;
   transform:translateY(calc(var(--bob,0) * -1px));transition:transform .25s cubic-bezier(.3,1.4,.5,1)}
 #p-hero .zzz{opacity:var(--zop,1);transition:opacity .4s}
 #p-hero .eye-shut{opacity:var(--shut,1)}
@@ -133,24 +111,28 @@ video{display:block;width:100%;max-height:42vh;object-fit:contain;background:#10
 #p-hero.sveglia .cloud-body{fill:var(--rosa)}
 #p-hero.sveglia{animation:jiggle .5s ease-in-out infinite}
 @keyframes jiggle{0%,100%{transform:translateY(-8px) rotate(-1.5deg)}50%{transform:translateY(-14px) rotate(1.5deg)}}
-.gauge{display:flex;align-items:baseline;justify-content:center;gap:12px;margin-top:2px;position:relative;z-index:2}
-.gauge b{font-weight:900;font-size:52px;line-height:1;letter-spacing:-.04em;color:#fff}
-.gauge .lab{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-  background:var(--menta);color:var(--ink);border:2px solid var(--ink);border-radius:99px;padding:4px 12px;box-shadow:2px 2px 0 rgba(0,0,0,.35)}
+.gauge{display:flex;align-items:baseline;justify-content:center;gap:12px;position:relative;z-index:2}
+.gauge b{font-weight:900;font-size:48px;line-height:1;letter-spacing:-.04em;color:#fff}
+.gauge .lab{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;background:var(--menta);
+  color:var(--ink);border:2px solid var(--ink);border-radius:99px;padding:4px 12px;box-shadow:2px 2px 0 rgba(0,0,0,.35)}
 .gauge .lab.up{background:var(--rosa)}
-
-.card-n{background:var(--night2);border:2.5px solid #fff;border-radius:20px;padding:14px;margin-top:16px;
+.card-n{background:var(--night2);border:2.5px solid #fff;border-radius:20px;padding:14px;margin-top:14px;
   box-shadow:4px 4px 0 rgba(0,0,0,.35);position:relative;z-index:2}
-.card-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
+.card-n p{font-size:13px;color:#CFC9FF;margin:0 0 12px}
+.card-h{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:9px}
 .card-h span{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#CFC9FF}
+.card-h span.val{color:var(--giallo)}
+.card-n .seg button{background:var(--night2);color:#fff;border-color:#fff;box-shadow:2px 2px 0 rgba(0,0,0,.35)}
+.card-n .seg button.sel{background:var(--giallo);color:var(--ink);border-color:var(--ink)}
 canvas#trace{width:100%;height:62px;display:block;border-radius:10px;background:rgba(0,0,0,.22)}
 input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:99px;
   background:rgba(255,255,255,.22);border:2px solid #fff;margin-top:4px}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;
   background:var(--giallo);border:2.5px solid var(--ink);cursor:pointer}
 input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:var(--giallo);border:2.5px solid var(--ink)}
-
-.tools{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:16px;position:relative;z-index:2}
+.calbar{height:12px;border:2px solid #fff;border-radius:99px;overflow:hidden;background:rgba(0,0,0,.25);margin-top:10px}
+.calbar i{display:block;height:100%;width:0%;background:var(--giallo);transition:width .3s linear}
+.tools{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px;position:relative;z-index:2}
 .tool{padding:11px 4px;background:var(--night2);color:#fff;border:2.5px solid #fff;border-radius:16px;
   font-size:12px;font-weight:500;line-height:1.25;text-align:center;box-shadow:3px 3px 0 rgba(0,0,0,.35)}
 .tool small{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;opacity:.72;display:block}
@@ -160,15 +142,20 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .talk.live{background:var(--rosa);color:var(--ink);border-color:var(--ink)}
 .log{font-family:var(--mono);font-size:10.5px;color:#B9B3E8;margin-top:12px;max-height:70px;overflow:auto;position:relative;z-index:2}
 .log div{padding:3px 0;border-bottom:1px solid rgba(255,255,255,.12)}
-
-/* modalità notte profonda */
+/* banner allarme */
+#p-banner{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:40;
+  background:var(--rosa);border:3px solid var(--ink);border-radius:22px;padding:14px 16px;box-shadow:5px 5px 0 var(--ink);
+  display:none;align-items:center;gap:12px;animation:pop .3s ease-out}
+#p-banner.on{display:flex}
+@keyframes pop{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
+#p-banner b{font-size:16px;display:block;line-height:1.2}
+#p-banner small{font-family:var(--mono);font-size:10.5px}
+#p-banner .mini{flex:none;background:var(--ink);color:#fff;border-color:var(--ink);box-shadow:none;padding:11px 16px;font-size:13px}
 #s-parent.deep{background:#0B0920}
 #s-parent.deep .stars{opacity:.25}
 #s-parent.deep .videobox{max-height:0;opacity:0;margin-top:0;border-width:0}
 #s-parent.deep .card-n,#s-parent.deep .log,#s-parent.deep .statusbar{opacity:.3}
 #s-parent.deep #p-hero{opacity:.62}
-
-/* ── safelight stanza ── */
 #safelight{position:fixed;inset:0;background:#000;display:none;place-items:center;z-index:30;cursor:pointer}
 #safelight.on{display:grid}
 #safelight svg{width:130px;opacity:.14;animation:snore 7s ease-in-out infinite}
@@ -182,128 +169,102 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 </head>
 <body>
 
-<!-- ══════ SPRITE: animali minimali che dormono sulle nuvole ══════ -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-<defs>
-  <g id="g-cloud">
-    <rect x="16" y="62" width="88" height="22" rx="11"/>
-    <circle cx="40" cy="64" r="15"/><circle cx="62" cy="58" r="19"/><circle cx="86" cy="65" r="13"/>
-  </g>
-</defs>
-
-<!-- GATTO -->
-<symbol id="a-cat" viewBox="0 0 120 100">
-  <use href="#g-cloud" fill="#fff"/>
+<defs><g id="g-cloud"><rect x="16" y="62" width="88" height="22" rx="11"/>
+  <circle cx="40" cy="64" r="15"/><circle cx="62" cy="58" r="19"/><circle cx="86" cy="65" r="13"/></g></defs>
+<symbol id="a-cat" viewBox="0 0 120 100"><use href="#g-cloud" fill="#fff"/>
   <ellipse cx="66" cy="50" rx="23" ry="12" fill="#FFD36E"/>
   <path d="M88 50c9 0 11-6 9-12" stroke="#FFD36E" stroke-width="6" fill="none" stroke-linecap="round"/>
-  <circle cx="46" cy="44" r="13" fill="#FFD36E"/>
-  <path d="M37 35l-1-9 9 4zM53 32l4-8 3 8z" fill="#FFD36E"/>
+  <circle cx="46" cy="44" r="13" fill="#FFD36E"/><path d="M37 35l-1-9 9 4zM53 32l4-8 3 8z" fill="#FFD36E"/>
   <path d="M40 45q3 3.5 6 0M52 45q3 3.5 6 0" stroke="#1B1749" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-  <path d="M47 49h4" stroke="#1B1749" stroke-width="2.4" stroke-linecap="round"/>
-</symbol>
-
-<!-- CONIGLIO -->
-<symbol id="a-bunny" viewBox="0 0 120 100">
-  <use href="#g-cloud" fill="#fff"/>
-  <ellipse cx="64" cy="51" rx="21" ry="12" fill="#FF8FA8"/>
-  <circle cx="85" cy="49" r="5" fill="#FFDCE5"/>
+  <path d="M47 49h4" stroke="#1B1749" stroke-width="2.4" stroke-linecap="round"/></symbol>
+<symbol id="a-bunny" viewBox="0 0 120 100"><use href="#g-cloud" fill="#fff"/>
+  <ellipse cx="64" cy="51" rx="21" ry="12" fill="#FF8FA8"/><circle cx="85" cy="49" r="5" fill="#FFDCE5"/>
   <circle cx="46" cy="45" r="12" fill="#FF8FA8"/>
   <path d="M40 34c-3-11 0-16 3-16s5 6 3 15zM52 33c-1-11 2-15 5-14s3 7 0 14z" fill="#FF8FA8"/>
-  <path d="M40 46q3 3.5 6 0M50 46q3 3.5 6 0" stroke="#1B1749" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-</symbol>
-
-<!-- PANDA -->
-<symbol id="a-panda" viewBox="0 0 120 100">
-  <use href="#g-cloud" fill="#fff"/>
-  <ellipse cx="64" cy="51" rx="22" ry="12" fill="#FFF"/>
-  <path d="M42 51a22 12 0 0 0 44 0z" fill="#1B1749" opacity=".12"/>
+  <path d="M40 46q3 3.5 6 0M50 46q3 3.5 6 0" stroke="#1B1749" stroke-width="2.4" fill="none" stroke-linecap="round"/></symbol>
+<symbol id="a-panda" viewBox="0 0 120 100"><use href="#g-cloud" fill="#fff"/>
+  <ellipse cx="64" cy="51" rx="22" ry="12" fill="#FFF"/><path d="M42 51a22 12 0 0 0 44 0z" fill="#1B1749" opacity=".12"/>
   <circle cx="36" cy="41" r="5" fill="#1B1749"/><circle cx="56" cy="39" r="5" fill="#1B1749"/>
   <circle cx="46" cy="45" r="13" fill="#fff" stroke="#1B1749" stroke-width="2"/>
   <ellipse cx="41" cy="45" rx="4" ry="4.6" fill="#1B1749"/><ellipse cx="52" cy="45" rx="4" ry="4.6" fill="#1B1749"/>
   <path d="M39 45q2 2.4 4 0M50 45q2 2.4 4 0" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-  <circle cx="46.5" cy="51" r="2" fill="#1B1749"/>
-</symbol>
-
-<!-- ORSO -->
-<symbol id="a-bear" viewBox="0 0 120 100">
-  <use href="#g-cloud" fill="#fff"/>
-  <ellipse cx="66" cy="51" rx="23" ry="12" fill="#B49BFF"/>
-  <circle cx="47" cy="44" r="14" fill="#B49BFF"/>
+  <circle cx="46.5" cy="51" r="2" fill="#1B1749"/></symbol>
+<symbol id="a-bear" viewBox="0 0 120 100"><use href="#g-cloud" fill="#fff"/>
+  <ellipse cx="66" cy="51" rx="23" ry="12" fill="#B49BFF"/><circle cx="47" cy="44" r="14" fill="#B49BFF"/>
   <circle cx="37" cy="33" r="6" fill="#B49BFF"/><circle cx="57" cy="32" r="6" fill="#B49BFF"/>
   <ellipse cx="47" cy="50" rx="7" ry="5" fill="#EFE7FF"/>
   <path d="M40 44q3 3.5 6 0M51 44q3 3.5 6 0" stroke="#1B1749" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-  <circle cx="47" cy="48" r="2.2" fill="#1B1749"/>
-</symbol>
-
-<!-- UCCELLINO -->
-<symbol id="a-bird" viewBox="0 0 120 100">
-  <use href="#g-cloud" fill="#fff"/>
-  <ellipse cx="60" cy="48" rx="18" ry="14" fill="#8CE0C8"/>
-  <path d="M60 40q10 2 13 9-8 3-13-2z" fill="#5FCBAE"/>
+  <circle cx="47" cy="48" r="2.2" fill="#1B1749"/></symbol>
+<symbol id="a-bird" viewBox="0 0 120 100"><use href="#g-cloud" fill="#fff"/>
+  <ellipse cx="60" cy="48" rx="18" ry="14" fill="#8CE0C8"/><path d="M60 40q10 2 13 9-8 3-13-2z" fill="#5FCBAE"/>
   <path d="M44 46l-8 3 8 3z" fill="#FFD36E"/>
-  <path d="M47 43q3 3.5 6 0" stroke="#1B1749" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-</symbol>
-
-<!-- NUVOLA SEMPLICE -->
+  <path d="M47 43q3 3.5 6 0" stroke="#1B1749" stroke-width="2.4" fill="none" stroke-linecap="round"/></symbol>
 <symbol id="a-cloudonly" viewBox="0 0 120 100"><use href="#g-cloud" fill="#fff"/></symbol>
 </svg>
 
-<!-- ══════ SCELTA RUOLO ══════ -->
+<!-- ══ START ══ -->
 <section id="s-start" class="screen on">
   <div class="drift" aria-hidden="true">
-    <svg class="d1"><use href="#a-cat"/></svg>
-    <svg class="d2"><use href="#a-bunny"/></svg>
-    <svg class="d3"><use href="#a-cloudonly"/></svg>
+    <svg class="d1"><use href="#a-cat"/></svg><svg class="d2"><use href="#a-bunny"/></svg><svg class="d3"><use href="#a-cloudonly"/></svg>
   </div>
   <div class="wrap">
     <span class="tag">monitor notturno</span>
     <h1 style="margin-top:14px">addorment<em>ADA</em>?</h1>
-    <p style="margin-top:14px">Due dispositivi che si parlano direttamente: il computer resta nella stanza, il telefono resta con voi. Niente account, niente server.</p>
+    <p style="margin-top:14px">Due dispositivi che si parlano direttamente: uno resta nella stanza, l'altro resta con voi. Niente account, niente server.</p>
     <div class="row-ic" aria-hidden="true">
       <svg class="ic"><use href="#a-panda"/></svg><svg class="ic"><use href="#a-bear"/></svg><svg class="ic"><use href="#a-bird"/></svg>
     </div>
     <div class="stack" style="margin-top:20px">
-      <button class="btn" id="go-room"><svg class="ic" aria-hidden="true"><use href="#a-cat"/></svg>Questo è il computer nella stanza</button>
-      <button class="btn sky" id="go-parent"><svg class="ic" aria-hidden="true"><use href="#a-bunny"/></svg>Questo è il telefono</button>
+      <button class="btn" id="go-room"><svg class="ic" aria-hidden="true"><use href="#a-cat"/></svg>Resta nella stanza</button>
+      <button class="btn sky" id="go-parent"><svg class="ic" aria-hidden="true"><use href="#a-bunny"/></svg>Resta con voi</button>
     </div>
-    <div class="note">Scegli un ruolo per ciascun dispositivo. Videocamera e microfono funzionano solo su una connessione sicura (https).
-    <br><br>Non è un dispositivo medico e non sostituisce la sorveglianza diretta.</div>
+    <div class="note">Videocamera e microfono funzionano solo su una connessione sicura (https).<br><br>Non è un dispositivo medico e non sostituisce la sorveglianza diretta.</div>
   </div>
 </section>
 
-<!-- ══════ STANZA ══════ -->
+<!-- ══ STANZA ══ -->
 <section id="s-room" class="screen">
   <div class="drift" aria-hidden="true"><svg class="d2"><use href="#a-cloudonly"/></svg></div>
   <div class="wrap">
-    <div class="statusbar">
-      <span class="chip"><span class="dot" id="r-dot"></span><span id="r-status">in attesa</span></span>
-      <span class="spacer"></span><button class="mini" id="r-reset">ricomincia</button>
-    </div>
+    <div class="statusbar"><span class="chip"><span class="dot" id="r-dot"></span><span id="r-status">in attesa</span></span>
+      <span class="spacer"></span><button class="mini" id="r-reset">ricomincia</button></div>
     <span class="tag mint">stanza</span>
     <h2 style="margin-top:12px">Il dispositivo che resta con la bambina</h2>
 
     <div id="r-step0">
-      <p>Accendi videocamera e microfono, poi passa il codice al telefono.</p>
-      <button class="btn giallo" id="r-start"><svg class="ic" aria-hidden="true"><use href="#a-panda"/></svg>Accendi videocamera</button>
-      <label class="check" style="margin-top:14px"><input type="checkbox" id="r-audioonly"> Solo audio</label>
+      <p>Cosa deve trasmettere:</p>
+      <div class="seg" id="r-mode">
+        <button data-m="av" class="sel">Video + audio</button>
+        <button data-m="a">Solo audio</button>
+      </div>
+      <div id="r-camrow" style="margin-top:12px">
+        <label class="field" style="margin:0"><span>obiettivo</span></label>
+        <div class="seg" id="r-facing">
+          <button data-f="user" class="sel">Frontale</button>
+          <button data-f="environment">Posteriore</button>
+        </div>
+      </div>
+      <button class="btn giallo" id="r-start" style="margin-top:16px"><svg class="ic" aria-hidden="true"><use href="#a-panda"/></svg>Accendi</button>
       <div class="err" id="r-err"></div>
+      <div class="note">In solo audio il telefono consuma molto meno e non illumina la stanza. Il rumore bianco o il ventilatore non sono un problema: si tarano dall'altro dispositivo.</div>
     </div>
 
     <div id="r-step1" class="hide">
-      <div class="videobox" style="margin-bottom:6px"><video id="r-preview" autoplay playsinline muted></video></div>
+      <div class="videobox" id="r-prevbox" style="margin-bottom:12px"><video id="r-preview" autoplay playsinline muted></video></div>
+      <div class="card-h" style="margin-bottom:6px"><span style="color:#6B65A5">microfono</span></div>
+      <div class="vu"><i id="r-vu"></i></div>
       <div class="step">
         <div class="step-n">1</div>
         <div class="step-b">
-          <label class="field"><span>Codice stanza — portalo sul telefono</span>
-            <textarea id="r-offer" readonly></textarea></label>
+          <label class="field"><span>Codice stanza — portalo sull'altro telefono</span><textarea id="r-offer" readonly></textarea></label>
           <button class="mini" id="r-copy">copia codice</button>
         </div>
       </div>
       <div class="step">
         <div class="step-n">2</div>
         <div class="step-b">
-          <label class="field"><span>Risposta del telefono — incollala qui</span>
-            <textarea id="r-answer" placeholder="incolla il codice che compare sul telefono"></textarea></label>
+          <label class="field"><span>Risposta — incollala qui</span><textarea id="r-answer" placeholder="incolla il codice che compare sull'altro telefono"></textarea></label>
           <button class="btn mint" id="r-connect">Attiva il collegamento</button>
           <div class="err" id="r-err2"></div>
         </div>
@@ -312,32 +273,30 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 
     <div id="r-step2" class="hide">
       <p style="font-weight:500;color:var(--ink)">Collegamento attivo. Spegni lo schermo per non illuminare la stanza — tocca per riaccenderlo.</p>
-      <div class="videobox"><video id="r-preview2" autoplay playsinline muted></video></div>
+      <div class="videobox" id="r-prevbox2"><video id="r-preview2" autoplay playsinline muted></video></div>
+      <div class="vu" style="margin-top:12px"><i id="r-vu2"></i></div>
       <button class="btn sky" id="r-dim" style="margin-top:16px">Spegni lo schermo</button>
-      <div class="note">Lascia la pagina aperta e in primo piano: se il computer si sospende il collegamento cade.</div>
+      <div class="note">Lascia la pagina aperta e in primo piano, con il dispositivo sotto carica: se va in sospensione il collegamento cade.</div>
     </div>
     <audio id="r-talkback" autoplay></audio>
   </div>
 </section>
 
-<!-- ══════ GENITORE ══════ -->
+<!-- ══ GENITORE ══ -->
 <section id="s-parent" class="screen">
   <div class="drift" aria-hidden="true"><svg class="d3"><use href="#a-cloudonly"/></svg></div>
   <div class="stars hide" id="p-stars"></div>
   <div class="wrap">
-    <div class="statusbar">
-      <span class="chip"><span class="dot" id="p-dot"></span><span id="p-status">non collegato</span></span>
-      <span class="spacer"></span><button class="mini" id="p-reset">ricomincia</button>
-    </div>
+    <div class="statusbar"><span class="chip"><span class="dot" id="p-dot"></span><span id="p-status">non collegato</span></span>
+      <span class="spacer"></span><button class="mini" id="p-reset">ricomincia</button></div>
 
     <div id="p-step0">
-      <span class="tag lilla">telefono</span>
+      <span class="tag lilla">con voi</span>
       <h2 style="margin-top:12px">Ricevi dalla stanza</h2>
       <div class="step">
         <div class="step-n">1</div>
         <div class="step-b">
-          <label class="field"><span>Codice stanza — incollalo qui</span>
-            <textarea id="p-offer" placeholder="incolla il codice che compare sul computer"></textarea></label>
+          <label class="field"><span>Codice stanza — incollalo qui</span><textarea id="p-offer" placeholder="incolla il codice che compare nella stanza"></textarea></label>
           <button class="mini" id="p-paste">incolla</button>
           <label class="check" style="margin-top:14px"><input type="checkbox" id="p-mic"> Voglio poterle parlare</label>
           <button class="btn" id="p-connect" style="margin-top:14px">Collega</button>
@@ -350,10 +309,9 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
       <div class="step">
         <div class="step-n" style="background:var(--menta)">2</div>
         <div class="step-b">
-          <label class="field"><span>Risposta — portala sul computer</span>
-            <textarea id="p-answer" readonly></textarea></label>
+          <label class="field"><span>Risposta — portala nella stanza</span><textarea id="p-answer" readonly></textarea></label>
           <button class="mini" id="p-copy">copia risposta</button>
-          <p style="margin-top:12px">Poi sul computer premi <b>Attiva il collegamento</b>. Torna qui: parte da solo.</p>
+          <p style="margin-top:12px">Poi nella stanza premi <b>Attiva il collegamento</b>. Torna qui: parte da solo.</p>
         </div>
       </div>
     </div>
@@ -362,27 +320,31 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
       <div class="hero">
         <svg id="p-hero" viewBox="0 0 120 108" aria-label="animale che dorme sulla nuvola">
           <g class="zzz" fill="#FFD36E" font-family="Zen Maru Gothic,sans-serif" font-weight="700">
-            <text x="74" y="26" font-size="13">z</text>
-            <text x="86" y="16" font-size="10">z</text>
-            <text x="95" y="9" font-size="7">z</text>
+            <text x="74" y="26" font-size="13">z</text><text x="86" y="16" font-size="10">z</text><text x="95" y="9" font-size="7">z</text>
           </g>
           <g class="cloud-body"><use href="#g-cloud" transform="translate(0,14)"/></g>
           <g transform="translate(0,14)">
             <ellipse cx="66" cy="50" rx="23" ry="12" fill="#FFD36E"/>
             <path d="M88 50c9 0 11-6 9-12" stroke="#FFD36E" stroke-width="6" fill="none" stroke-linecap="round"/>
-            <circle cx="46" cy="44" r="13" fill="#FFD36E"/>
-            <path d="M37 35l-1-9 9 4zM53 32l4-8 3 8z" fill="#FFD36E"/>
-            <g class="eye-shut">
-              <path d="M40 45q3 3.5 6 0M52 45q3 3.5 6 0" stroke="#1B1749" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-            </g>
-            <g class="eye-open">
-              <circle cx="43" cy="44" r="3.2" fill="#1B1749"/><circle cx="55" cy="44" r="3.2" fill="#1B1749"/>
-            </g>
+            <circle cx="46" cy="44" r="13" fill="#FFD36E"/><path d="M37 35l-1-9 9 4zM53 32l4-8 3 8z" fill="#FFD36E"/>
+            <g class="eye-shut"><path d="M40 45q3 3.5 6 0M52 45q3 3.5 6 0" stroke="#1B1749" stroke-width="2.4" fill="none" stroke-linecap="round"/></g>
+            <g class="eye-open"><circle cx="43" cy="44" r="3.2" fill="#1B1749"/><circle cx="55" cy="44" r="3.2" fill="#1B1749"/></g>
             <path d="M47 49h4" stroke="#1B1749" stroke-width="2.4" stroke-linecap="round"/>
           </g>
         </svg>
       </div>
       <div class="gauge"><b id="p-level">0</b><span class="lab" id="p-mood">quiete</span></div>
+
+      <!-- TARATURA -->
+      <div class="card-n" id="p-cal">
+        <div class="card-h"><span>taratura della stanza</span><span class="val" id="p-calstate">da fare</span></div>
+        <p id="p-caltext">Accendi ora il rumore bianco o il ventilatore, come li tenete di notte. Ascolto 15 secondi e metto la soglia appena sopra il fondo.</p>
+        <div class="seg" id="p-margin" style="margin-bottom:12px">
+          <button data-m="6">Sensibile</button><button data-m="12" class="sel">Normale</button><button data-m="20">Tollerante</button>
+        </div>
+        <button class="btn giallo" id="p-calgo">Ascolta la stanza · 15s</button>
+        <div class="calbar hide" id="p-calbarwrap"><i id="p-calbar"></i></div>
+      </div>
 
       <div class="card-n">
         <div class="card-h"><span>ultimi 10 minuti</span><span id="p-last">nessun risveglio</span></div>
@@ -390,16 +352,29 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
       </div>
 
       <div class="card-n">
-        <div class="card-h"><span>soglia di avviso</span><span id="p-thrval">35</span></div>
-        <input type="range" id="p-thr" min="5" max="90" value="35">
+        <div class="card-h"><span>soglia di avviso</span><span class="val" id="p-thrval">35</span></div>
+        <input type="range" id="p-thr" min="5" max="95" value="35">
       </div>
 
-      <div class="videobox" id="p-videobox"><video id="p-video" autoplay playsinline></video></div>
+      <!-- ALLARME -->
+      <div class="card-n">
+        <div class="card-h"><span>allarme quando piange</span><span class="val" id="p-alarmstate">spento</span></div>
+        <div class="seg" id="p-alarmkind">
+          <button data-k="off" class="sel">Nessuno</button><button data-k="bip">Bip</button>
+          <button data-k="sirena">Sirena</button><button data-k="campana">Campana</button>
+        </div>
+        <div class="card-h" style="margin:14px 0 0"><span>volume</span></div>
+        <input type="range" id="p-vol" min="10" max="100" value="70">
+        <label class="check" id="p-insist-l" style="margin-top:14px;background:var(--night2);color:#fff;border-color:#fff;box-shadow:2px 2px 0 rgba(0,0,0,.35)">
+          <input type="checkbox" id="p-insist" checked> Insisti finché non lo tacito</label>
+      </div>
+
+      <div class="videobox hide" id="p-videobox"><video id="p-video" autoplay playsinline></video></div>
 
       <div class="tools">
         <button class="tool on" id="t-alert">avvisi<small id="t-alert-s">attivi</small></button>
         <button class="tool" id="t-night">notte<small>profonda</small></button>
-        <button class="tool on" id="t-sound">audio<small id="t-sound-s">acceso</small></button>
+        <button class="tool on" id="t-sound">ascolto<small id="t-sound-s">acceso</small></button>
         <button class="tool talk hide" id="t-talk">Tieni premuto per parlare</button>
       </div>
       <div class="log" id="p-log"></div>
@@ -407,22 +382,23 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   </div>
 </section>
 
+<div id="p-banner"><div style="flex:1"><b>Ada si è svegliata</b><small id="p-bannert"></small></div><button class="mini" id="p-hush">Tacita</button></div>
 <div id="safelight"><svg><use href="#a-bear"/></svg><div class="safenote">tocca per riaccendere lo schermo</div></div>
 
 <script>
 (function(){
 "use strict";
-const $=s=>document.querySelector(s);
+const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
 const ICE={iceServers:[{urls:["stun:stun.l.google.com:19302","stun:stun1.l.google.com:19302"]}]};
 const encode=o=>btoa(unescape(encodeURIComponent(JSON.stringify(o))));
 const decode=s=>JSON.parse(decodeURIComponent(escape(atob(s.trim().replace(/\s+/g,"")))));
-function show(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("on"));$(id).classList.add("on");}
+function show(id){$$(".screen").forEach(s=>s.classList.remove("on"));$(id).classList.add("on");}
 function err(el,msg){el.textContent=msg;el.classList.toggle("on",!!msg);}
+function segPick(container,btn){container.querySelectorAll("button").forEach(b=>b.classList.remove("sel"));btn.classList.add("sel");}
 async function copy(text,btn){
   try{await navigator.clipboard.writeText(text);}catch(e){
     const t=document.createElement("textarea");t.value=text;document.body.appendChild(t);t.select();
-    try{document.execCommand("copy");}catch(_){}t.remove();
-  }
+    try{document.execCommand("copy");}catch(_){}t.remove();}
   const old=btn.textContent;btn.textContent="copiato ✓";setTimeout(()=>btn.textContent=old,1600);
 }
 function gathered(pc){
@@ -430,39 +406,49 @@ function gathered(pc){
   return new Promise(res=>{
     const done=()=>{clearTimeout(t);pc.removeEventListener("icegatheringstatechange",h);res();};
     const h=()=>{if(pc.iceGatheringState==="complete")done();};
-    const t=setTimeout(done,4000);
-    pc.addEventListener("icegatheringstatechange",h);
-  });
+    const t=setTimeout(done,4000);pc.addEventListener("icegatheringstatechange",h);});
 }
 let wl=null;
 async function keepAwake(){try{if("wakeLock" in navigator)wl=await navigator.wakeLock.request("screen");}catch(e){}}
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&!wl)keepAwake();});
-function setStatus(dot,txt,state){
+function setStatus(dot,txt,st){
   const m={idle:["","in attesa"],connecting:["","collegamento…"],live:["live","collegato"],lost:["warn","collegamento perso"]};
-  const v=m[state]||m.idle; dot.className="dot "+v[0]; txt.textContent=v[1];
+  const v=m[st]||m.idle;dot.className="dot "+v[0];txt.textContent=v[1];
+}
+function rmsLevel(analyser,buf){
+  analyser.getByteTimeDomainData(buf);
+  let sum=0;for(let i=0;i<buf.length;i++){const v=(buf[i]-128)/128;sum+=v*v;}
+  const db=20*Math.log10(Math.sqrt(sum/buf.length)||1e-8);
+  return Math.max(0,Math.min(100,Math.round((db+62)/62*100)));
 }
 
-/* ═════ STANZA ═════ */
-const R={pc:null,stream:null};
+/* ══════ STANZA ══════ */
+const R={pc:null,stream:null,mode:"av",facing:"user",an:null,buf:null};
 $("#go-room").onclick=()=>show("#s-room");
 $("#r-reset").onclick=()=>location.reload();
 $("#p-reset").onclick=()=>location.reload();
+$("#r-mode").onclick=e=>{const b=e.target.closest("button");if(!b)return;
+  segPick($("#r-mode"),b);R.mode=b.dataset.m;$("#r-camrow").classList.toggle("hide",R.mode==="a");};
+$("#r-facing").onclick=e=>{const b=e.target.closest("button");if(!b)return;segPick($("#r-facing"),b);R.facing=b.dataset.f;};
 
 $("#r-start").onclick=async function(){
   err($("#r-err"),"");
-  if(!window.isSecureContext){err($("#r-err"),"Il browser blocca videocamera e microfono su una connessione non sicura. Apri la pagina da un indirizzo https.");return;}
+  if(!window.isSecureContext){err($("#r-err"),"Il browser blocca microfono e videocamera su una connessione non sicura. Apri la pagina da un indirizzo https.");return;}
   this.disabled=true;this.textContent="accensione…";
+  const wantVideo=R.mode==="av";
   try{
     R.stream=await navigator.mediaDevices.getUserMedia({
-      video:$("#r-audioonly").checked?false:{width:{ideal:1280},height:{ideal:720},frameRate:{ideal:15}},
+      video:wantVideo?{facingMode:R.facing,width:{ideal:1280},height:{ideal:720},frameRate:{ideal:15}}:false,
       audio:{echoCancellation:true,noiseSuppression:false,autoGainControl:false}});
   }catch(e){
-    err($("#r-err"),"Accesso negato o dispositivo occupato ("+e.name+"). Controlla i permessi del browser e chiudi le altre app che usano la videocamera.");
-    this.disabled=false;this.textContent="Accendi videocamera";return;
+    err($("#r-err"),"Accesso negato o dispositivo occupato ("+e.name+"). Controlla i permessi del browser e chiudi le altre app che usano microfono o videocamera.");
+    this.disabled=false;this.textContent="Accendi";return;
   }
-  $("#r-preview").srcObject=R.stream;
+  if(!wantVideo){$("#r-prevbox").classList.add("hide");$("#r-prevbox2").classList.add("hide");}
+  else $("#r-preview").srcObject=R.stream;
   $("#r-step0").classList.add("hide");$("#r-step1").classList.remove("hide");
   keepAwake();setStatus($("#r-dot"),$("#r-status"),"connecting");
+  localVU();
 
   R.pc=new RTCPeerConnection(ICE);
   R.stream.getTracks().forEach(t=>R.pc.addTrack(t,R.stream));
@@ -473,30 +459,40 @@ $("#r-start").onclick=async function(){
     if(st==="connected"){
       setStatus($("#r-dot"),$("#r-status"),"live");
       $("#r-step1").classList.add("hide");$("#r-step2").classList.remove("hide");
-      $("#r-preview2").srcObject=R.stream;
+      if(wantVideo)$("#r-preview2").srcObject=R.stream;
     }else if(st==="failed"||st==="disconnected")setStatus($("#r-dot"),$("#r-status"),"lost");
   };
   await R.pc.setLocalDescription(await R.pc.createOffer());
   await gathered(R.pc);
   $("#r-offer").value=encode({t:"offer",s:R.pc.localDescription.sdp});
 };
+function localVU(){
+  try{
+    const ctx=new (window.AudioContext||window.webkitAudioContext)();
+    const an=ctx.createAnalyser();an.fftSize=1024;
+    ctx.createMediaStreamSource(R.stream).connect(an);
+    const buf=new Uint8Array(an.fftSize);
+    setInterval(()=>{const l=rmsLevel(an,buf);
+      $("#r-vu").style.width=l+"%";$("#r-vu2").style.width=l+"%";},120);
+  }catch(e){}
+}
 $("#r-copy").onclick=function(){copy($("#r-offer").value,this);};
 $("#r-connect").onclick=async function(){
   err($("#r-err2"),"");
   const raw=$("#r-answer").value.trim();
-  if(!raw){err($("#r-err2"),"Manca la risposta del telefono.");return;}
-  try{
-    const d=decode(raw); if(d.t!=="answer")throw 0;
+  if(!raw){err($("#r-err2"),"Manca la risposta dell'altro dispositivo.");return;}
+  try{const d=decode(raw);if(d.t!=="answer")throw 0;
     await R.pc.setRemoteDescription({type:"answer",sdp:d.s});
     this.textContent="collegamento in corso…";this.disabled=true;
-  }catch(e){err($("#r-err2"),"Codice non valido. Copialo di nuovo per intero dal telefono.");}
+  }catch(e){err($("#r-err2"),"Codice non valido. Copialo di nuovo per intero.");}
 };
 $("#r-dim").onclick=()=>$("#safelight").classList.add("on");
 $("#safelight").onclick=()=>$("#safelight").classList.remove("on");
 
-/* ═════ GENITORE ═════ */
-const P={pc:null,micTrack:null,ctx:null,analyser:null,buf:null,level:0,
-  hist:new Array(200).fill(0),over:0,lastAlert:0,alerts:true,sound:true,thr:35};
+/* ══════ GENITORE ══════ */
+const P={pc:null,micTrack:null,ctx:null,master:null,analyser:null,buf:null,level:0,
+  hist:new Array(200).fill(0),over:0,lastAlert:0,alerts:true,sound:true,thr:35,
+  base:null,margin:12,calibrating:false,alarmKind:"off",vol:.7,insist:true,alarmTimer:null,ringing:false};
 
 $("#go-parent").onclick=()=>show("#s-parent");
 $("#p-paste").onclick=async function(){
@@ -507,13 +503,17 @@ $("#p-connect").onclick=async function(){
   err($("#p-err"),"");
   const raw=$("#p-offer").value.trim();
   if(!raw){err($("#p-err"),"Incolla prima il codice della stanza.");return;}
-  let d; try{d=decode(raw); if(d.t!=="offer")throw 0;}
-  catch(e){err($("#p-err"),"Codice non valido. Copialo di nuovo per intero dal computer.");return;}
+  let d;try{d=decode(raw);if(d.t!=="offer")throw 0;}
+  catch(e){err($("#p-err"),"Codice non valido. Copialo di nuovo per intero.");return;}
   this.disabled=true;this.textContent="preparazione…";
   setStatus($("#p-dot"),$("#p-status"),"connecting");
 
   P.pc=new RTCPeerConnection(ICE);
-  P.pc.ontrack=e=>{const v=$("#p-video");if(v.srcObject!==e.streams[0]){v.srcObject=e.streams[0];startMeter(e.streams[0]);}};
+  P.pc.ontrack=e=>{
+    const st=e.streams[0],v=$("#p-video");
+    if(v.srcObject!==st){v.srcObject=st;startMeter(st);}
+    if(st.getVideoTracks().length)$("#p-videobox").classList.remove("hide");
+  };
   P.pc.onconnectionstatechange=()=>{
     const st=P.pc.connectionState;
     if(st==="connected"){
@@ -522,9 +522,7 @@ $("#p-connect").onclick=async function(){
       $("#p-monitor").classList.remove("hide");
       $("#s-parent").classList.add("night-sky");$("#p-stars").classList.remove("hide");
       sizeCanvas();keepAwake();
-    }else if(st==="failed"||st==="disconnected"){
-      setStatus($("#p-dot"),$("#p-status"),"lost");logEvent("collegamento perso");
-    }
+    }else if(st==="failed"||st==="disconnected"){setStatus($("#p-dot"),$("#p-status"),"lost");logEvent("collegamento perso");}
   };
   if($("#p-mic").checked){
     try{
@@ -539,40 +537,31 @@ $("#p-connect").onclick=async function(){
     await gathered(P.pc);
     $("#p-answer").value=encode({t:"answer",s:P.pc.localDescription.sdp});
     $("#p-step0").classList.add("hide");$("#p-step1").classList.remove("hide");
-  }catch(e){
-    err($("#p-err"),"Non riesco a preparare la risposta: "+e.message);
-    this.disabled=false;this.textContent="Collega";
-  }
+  }catch(e){err($("#p-err"),"Non riesco a preparare la risposta: "+e.message);this.disabled=false;this.textContent="Collega";}
 };
 $("#p-copy").onclick=function(){copy($("#p-answer").value,this);};
 
-/* ── misura del suono ── */
 function startMeter(stream){
   if(!stream.getAudioTracks().length)return;
   try{
     P.ctx=new (window.AudioContext||window.webkitAudioContext)();
     if(P.ctx.state==="suspended")P.ctx.resume();
-    const src=P.ctx.createMediaStreamSource(stream);
-    P.analyser=P.ctx.createAnalyser();
-    P.analyser.fftSize=1024;P.analyser.smoothingTimeConstant=.6;
+    P.master=P.ctx.createGain();P.master.gain.value=P.vol;P.master.connect(P.ctx.destination);
+    P.analyser=P.ctx.createAnalyser();P.analyser.fftSize=1024;P.analyser.smoothingTimeConstant=.6;
     P.buf=new Uint8Array(P.analyser.fftSize);
-    src.connect(P.analyser);
+    P.ctx.createMediaStreamSource(stream).connect(P.analyser);
     requestAnimationFrame(tick);setInterval(pushHistory,3000);
   }catch(e){}
 }
+const hero=$("#p-hero");
 function tick(){
   if(P.analyser){
-    P.analyser.getByteTimeDomainData(P.buf);
-    let sum=0;for(let i=0;i<P.buf.length;i++){const v=(P.buf[i]-128)/128;sum+=v*v;}
-    const rms=Math.sqrt(sum/P.buf.length);
-    const db=20*Math.log10(rms||1e-8);
-    const lv=Math.max(0,Math.min(100,Math.round((db+62)/62*100)));
+    const lv=rmsLevel(P.analyser,P.buf);
     P.level=P.level*.7+lv*.3;
-    render();checkAlert();
+    render();if(!P.calibrating)checkAlert();
   }
   requestAnimationFrame(tick);
 }
-const hero=$("#p-hero");
 function render(){
   const l=Math.round(P.level),loud=l>=P.thr;
   $("#p-level").textContent=l;
@@ -582,28 +571,106 @@ function render(){
   hero.style.setProperty("--open",loud?1:0);
   hero.classList.toggle("sveglia",loud);
   const mood=$("#p-mood");
-  mood.textContent=loud?"sveglia!":(l>P.thr*.55?"si gira":"quiete");
-  mood.classList.toggle("up",loud);
+  mood.textContent=P.calibrating?"ascolto…":(loud?"sveglia!":(l>P.thr*.8?"si gira":"quiete"));
+  mood.classList.toggle("up",loud&&!P.calibrating);
 }
+
+/* ── taratura ── */
+$("#p-margin").onclick=e=>{const b=e.target.closest("button");if(!b)return;
+  segPick($("#p-margin"),b);P.margin=+b.dataset.m;if(P.base!==null)applyCal();};
+$("#p-calgo").onclick=function(){
+  if(P.calibrating||!P.analyser)return;
+  if(P.ctx&&P.ctx.state==="suspended")P.ctx.resume();
+  P.calibrating=true;this.disabled=true;
+  $("#p-calbarwrap").classList.remove("hide");
+  const samples=[];let n=0;const total=150;
+  $("#p-calstate").textContent="in ascolto";
+  const iv=setInterval(()=>{
+    samples.push(P.level);n++;
+    $("#p-calbar").style.width=(n/total*100)+"%";
+    $("#p-calgo").textContent="ascolto… "+Math.ceil((total-n)/10)+"s";
+    if(n>=total){
+      clearInterval(iv);
+      samples.sort((a,b)=>a-b);
+      P.base=Math.round(samples[Math.floor(samples.length*.9)]);
+      P.calibrating=false;
+      $("#p-calbarwrap").classList.add("hide");$("#p-calbar").style.width="0%";
+      $("#p-calgo").textContent="Rifai la taratura";$("#p-calgo").disabled=false;
+      applyCal();
+      logEvent("taratura: fondo "+P.base);
+    }
+  },100);
+};
+function applyCal(){
+  P.thr=Math.min(95,Math.max(8,P.base+P.margin));
+  $("#p-thr").value=P.thr;$("#p-thrval").textContent=P.thr;
+  $("#p-calstate").textContent="fondo "+P.base;
+  $("#p-caltext").textContent="Fondo della stanza "+P.base+", soglia "+P.thr+". Rifalla se cambiate ventilatore, rumore bianco o posizione del dispositivo.";
+  drawTrace();
+}
+
+/* ── avvisi e allarme ── */
 function checkAlert(){
   const now=Date.now();
-  P.over = P.level>=P.thr ? P.over+1 : Math.max(0,P.over-2);
+  P.over=P.level>=P.thr?P.over+1:Math.max(0,P.over-2);
   if(P.alerts&&P.over>70&&now-P.lastAlert>20000){
-    P.lastAlert=now;P.over=0;
-    if(navigator.vibrate)navigator.vibrate([300,120,300,120,400]);
-    beep();logEvent("rumore sopra soglia");
-    $("#p-last").textContent="ultimo alle "+new Date().toLocaleTimeString("it-IT",{hour:"2-digit",minute:"2-digit"});
+    P.lastAlert=now;P.over=0;fireAlert();
   }
 }
-function beep(){
-  if(!P.ctx)return;
-  try{
-    const o=P.ctx.createOscillator(),g=P.ctx.createGain(),t=P.ctx.currentTime;
-    o.type="sine";o.frequency.value=660;g.gain.value=0;
-    o.connect(g);g.connect(P.ctx.destination);o.start();
-    g.gain.linearRampToValueAtTime(.18,t+.05);g.gain.linearRampToValueAtTime(0,t+.7);o.stop(t+.75);
-  }catch(e){}
+function fireAlert(){
+  if(navigator.vibrate)navigator.vibrate([300,120,300,120,400]);
+  logEvent("rumore sopra soglia");
+  const t=new Date().toLocaleTimeString("it-IT",{hour:"2-digit",minute:"2-digit"});
+  $("#p-last").textContent="ultimo alle "+t;
+  if(P.alarmKind==="off")return;
+  $("#p-bannert").textContent="rilevato alle "+t;
+  $("#p-banner").classList.add("on");
+  P.ringing=true;playAlarm();
+  if(P.insist){
+    clearInterval(P.alarmTimer);
+    P.alarmTimer=setInterval(()=>{playAlarm();if(navigator.vibrate)navigator.vibrate([250,150,250]);},4000);
+  }else setTimeout(hush,9000);
 }
+function hush(){
+  clearInterval(P.alarmTimer);P.alarmTimer=null;P.ringing=false;
+  $("#p-banner").classList.remove("on");
+}
+$("#p-hush").onclick=hush;
+function tone(freq,start,dur,type,peak){
+  const o=P.ctx.createOscillator(),g=P.ctx.createGain(),t=P.ctx.currentTime+start;
+  o.type=type||"sine";o.frequency.setValueAtTime(freq,t);
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(peak||.5,t+.03);
+  g.gain.exponentialRampToValueAtTime(.001,t+dur);
+  o.connect(g);g.connect(P.master);o.start(t);o.stop(t+dur+.05);
+  return o;
+}
+function playAlarm(){
+  if(!P.ctx||!P.master)return;
+  if(P.ctx.state==="suspended")P.ctx.resume();
+  if(P.alarmKind==="bip"){[0,.35,.7].forEach(s=>tone(920,s,.22,"square",.35));}
+  else if(P.alarmKind==="sirena"){
+    for(let k=0;k<2;k++){
+      const t=P.ctx.currentTime+k*1.1;
+      const o=P.ctx.createOscillator(),g=P.ctx.createGain();
+      o.type="sawtooth";o.frequency.setValueAtTime(480,t);
+      o.frequency.linearRampToValueAtTime(980,t+.5);o.frequency.linearRampToValueAtTime(480,t+1);
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.3,t+.08);
+      g.gain.linearRampToValueAtTime(0,t+1);
+      o.connect(g);g.connect(P.master);o.start(t);o.stop(t+1.05);
+    }
+  }else if(P.alarmKind==="campana"){
+    [0,.5,1].forEach(s=>{tone(1318,s,1.4,"triangle",.4);tone(1976,s,.9,"sine",.18);});
+  }
+}
+$("#p-alarmkind").onclick=e=>{const b=e.target.closest("button");if(!b)return;
+  segPick($("#p-alarmkind"),b);P.alarmKind=b.dataset.k;
+  $("#p-alarmstate").textContent=P.alarmKind==="off"?"spento":b.textContent.toLowerCase();
+  if(P.ctx&&P.ctx.state==="suspended")P.ctx.resume();
+  if(P.alarmKind!=="off")playAlarm();
+};
+$("#p-vol").oninput=function(){P.vol=+this.value/100;if(P.master)P.master.gain.value=P.vol;};
+$("#p-insist").onchange=function(){P.insist=this.checked;};
+
 function logEvent(txt){
   const d=document.createElement("div");
   d.textContent=new Date().toLocaleTimeString("it-IT",{hour:"2-digit",minute:"2-digit"})+"  ·  "+txt;
@@ -624,22 +691,26 @@ function drawTrace(){
   const c=$("#trace");if(!c.width)return;
   const x=c.getContext("2d"),w=c.width/(window.devicePixelRatio||1),h=62;
   x.clearRect(0,0,w,h);
+  if(P.base!==null){
+    const bh=(P.base/100)*(h-10);
+    x.fillStyle="rgba(255,255,255,.08)";x.fillRect(0,(h-bh)/2,w,bh);
+  }
   const n=P.hist.length,bw=w/n;
   for(let i=0;i<n;i++){
-    const v=P.hist[i]/100,bh=Math.max(2,v*(h-10));
+    const v=P.hist[i]/100,bh=Math.max(2,v*(h-10)),bx=i*bw,bwid=Math.max(1.5,bw-1.6);
     x.fillStyle=P.hist[i]>=P.thr?"#FF8FA8":"rgba(140,224,200,"+(0.3+v*0.7)+")";
-    const bx=i*bw,bwid=Math.max(1.5,bw-1.6);
     x.beginPath();
     if(x.roundRect)x.roundRect(bx,(h-bh)/2,bwid,bh,bwid/2);else x.rect(bx,(h-bh)/2,bwid,bh);
     x.fill();
   }
-  x.strokeStyle="rgba(255,211,110,.5)";x.setLineDash([3,4]);x.beginPath();
+  x.strokeStyle="rgba(255,211,110,.55)";x.setLineDash([3,4]);x.beginPath();
   const ty=(h-(P.thr/100)*(h-10))/2;x.moveTo(0,ty);x.lineTo(w,ty);x.stroke();x.setLineDash([]);
 }
 /* ── comandi ── */
 $("#p-thr").oninput=function(){P.thr=+this.value;$("#p-thrval").textContent=this.value;drawTrace();};
 $("#t-alert").onclick=function(){P.alerts=!P.alerts;this.classList.toggle("on",P.alerts);
-  $("#t-alert-s").textContent=P.alerts?"attivi":"spenti";if(P.ctx&&P.ctx.state==="suspended")P.ctx.resume();};
+  $("#t-alert-s").textContent=P.alerts?"attivi":"spenti";if(!P.alerts)hush();
+  if(P.ctx&&P.ctx.state==="suspended")P.ctx.resume();};
 $("#t-sound").onclick=function(){P.sound=!P.sound;$("#p-video").muted=!P.sound;this.classList.toggle("on",P.sound);
   $("#t-sound-s").textContent=P.sound?"acceso":"muto";};
 $("#t-night").onclick=function(){const on=$("#s-parent").classList.toggle("deep");this.classList.toggle("on",on);};
