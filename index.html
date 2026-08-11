@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#FFF4E6">
-<title>addormentADA?</title>
+<title>La bella addormentADA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -23,8 +23,10 @@ body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--tondo);
 .screen{display:none;min-height:100dvh;flex-direction:column;position:relative;overflow:hidden}
 .screen.on{display:flex}
 .wrap{width:100%;max-width:540px;margin:0 auto;padding:22px 20px 32px;flex:1;display:flex;flex-direction:column;position:relative;z-index:2}
-h1{font-weight:900;font-size:clamp(34px,10vw,46px);letter-spacing:-.03em;margin:0;line-height:1.05}
+h1{font-weight:900;font-size:clamp(31px,8.8vw,42px);letter-spacing:-.03em;margin:0;line-height:1}
 h1 em{font-style:normal;color:var(--rosa);text-shadow:2px 2px 0 var(--ink)}
+.pre{display:block;font-weight:500;font-size:clamp(21px,6vw,28px);letter-spacing:-.01em;
+  color:var(--lilla);-webkit-text-stroke:.6px var(--ink);margin-bottom:-2px}
 h2{font-weight:700;font-size:21px;margin:0 0 8px;letter-spacing:-.01em}
 p{margin:0 0 14px;font-size:14.5px;color:#4A4485}
 .tag{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
@@ -59,7 +61,6 @@ label.field span{display:block;margin-bottom:7px;font-family:var(--mono);font-si
 .check{display:flex;gap:10px;align-items:center;font-size:14px;background:#fff;border:2px solid var(--ink);
   border-radius:99px;padding:9px 15px;box-shadow:2px 2px 0 var(--ink);width:fit-content}
 .check input{width:17px;height:17px;accent-color:var(--rosa)}
-/* segmenti */
 .seg{display:flex;gap:7px;flex-wrap:wrap}
 .seg button{flex:1;min-width:78px;padding:9px 8px;background:#fff;border:2.5px solid var(--ink);border-radius:99px;
   font-size:13px;font-weight:500;box-shadow:2px 2px 0 var(--ink)}
@@ -87,10 +88,15 @@ video{display:block;width:100%;max-height:42vh;object-fit:contain;background:#10
 .err{color:#D6385C;font-weight:500;font-size:13.5px;margin-top:10px;display:none}
 .err.on{display:block}
 .hide{display:none!important}
-/* barra livello locale (stanza) */
 .vu{height:14px;border:2.5px solid var(--ink);border-radius:99px;background:#fff;overflow:hidden;box-shadow:2px 2px 0 var(--ink)}
 .vu i{display:block;height:100%;width:0%;background:var(--menta);transition:width .1s}
-/* monitor notturno */
+.pane{background:#fff;border:2.5px solid var(--ink);border-radius:20px;padding:16px;box-shadow:var(--ombra);margin-top:16px}
+.pane .card-h span{color:#6B65A5}
+.pane .card-h span.val{color:var(--ink);font-weight:500}
+.pane p{font-size:13.5px;margin:0 0 12px}
+.calbar{height:12px;border:2px solid #fff;border-radius:99px;overflow:hidden;background:rgba(0,0,0,.25);margin-top:10px}
+.calbar i{display:block;height:100%;width:0%;background:var(--giallo);transition:width .3s linear}
+.pane .calbar{border-color:var(--ink);background:#F1EDFF}
 #s-parent.night-sky{background:var(--night)}
 #s-parent.night-sky p{color:#B9B3E8}
 #s-parent.night-sky h2{color:#fff}
@@ -130,8 +136,6 @@ input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;
   background:var(--giallo);border:2.5px solid var(--ink);cursor:pointer}
 input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:var(--giallo);border:2.5px solid var(--ink)}
-.calbar{height:12px;border:2px solid #fff;border-radius:99px;overflow:hidden;background:rgba(0,0,0,.25);margin-top:10px}
-.calbar i{display:block;height:100%;width:0%;background:var(--giallo);transition:width .3s linear}
 .tools{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px;position:relative;z-index:2}
 .tool{padding:11px 4px;background:var(--night2);color:#fff;border:2.5px solid #fff;border-radius:16px;
   font-size:12px;font-weight:500;line-height:1.25;text-align:center;box-shadow:3px 3px 0 rgba(0,0,0,.35)}
@@ -142,7 +146,6 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .talk.live{background:var(--rosa);color:var(--ink);border-color:var(--ink)}
 .log{font-family:var(--mono);font-size:10.5px;color:#B9B3E8;margin-top:12px;max-height:70px;overflow:auto;position:relative;z-index:2}
 .log div{padding:3px 0;border-bottom:1px solid rgba(255,255,255,.12)}
-/* banner allarme */
 #p-banner{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:40;
   background:var(--rosa);border:3px solid var(--ink);border-radius:22px;padding:14px 16px;box-shadow:5px 5px 0 var(--ink);
   display:none;align-items:center;gap:12px;animation:pop .3s ease-out}
@@ -210,7 +213,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   </div>
   <div class="wrap">
     <span class="tag">monitor notturno</span>
-    <h1 style="margin-top:14px">addorment<em>ADA</em>?</h1>
+    <div style="margin-top:14px"><span class="pre">La bella</span><h1>addorment<em>ADA</em></h1></div>
     <p style="margin-top:14px">Due dispositivi che si parlano direttamente: uno resta nella stanza, l'altro resta con voi. Niente account, niente server.</p>
     <div class="row-ic" aria-hidden="true">
       <svg class="ic"><use href="#a-panda"/></svg><svg class="ic"><use href="#a-bear"/></svg><svg class="ic"><use href="#a-bird"/></svg>
@@ -235,36 +238,32 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
     <div id="r-step0">
       <p>Cosa deve trasmettere:</p>
       <div class="seg" id="r-mode">
-        <button data-m="av" class="sel">Video + audio</button>
-        <button data-m="a">Solo audio</button>
+        <button data-m="av" class="sel">Video + audio</button><button data-m="a">Solo audio</button>
       </div>
       <div id="r-camrow" style="margin-top:12px">
         <label class="field" style="margin:0"><span>obiettivo</span></label>
-        <div class="seg" id="r-facing">
-          <button data-f="user" class="sel">Frontale</button>
-          <button data-f="environment">Posteriore</button>
-        </div>
+        <div class="seg" id="r-facing"><button data-f="user" class="sel">Frontale</button><button data-f="environment">Posteriore</button></div>
       </div>
       <button class="btn giallo" id="r-start" style="margin-top:16px"><svg class="ic" aria-hidden="true"><use href="#a-panda"/></svg>Accendi</button>
       <div class="err" id="r-err"></div>
-      <div class="note">In solo audio il telefono consuma molto meno e non illumina la stanza. Il rumore bianco o il ventilatore non sono un problema: si tarano dall'altro dispositivo.</div>
+      <div class="note">In solo audio il dispositivo consuma molto meno e non illumina la stanza. La taratura del rumore di fondo si fa da qui, appena il collegamento è attivo.</div>
     </div>
 
     <div id="r-step1" class="hide">
       <div class="videobox" id="r-prevbox" style="margin-bottom:12px"><video id="r-preview" autoplay playsinline muted></video></div>
-      <div class="card-h" style="margin-bottom:6px"><span style="color:#6B65A5">microfono</span></div>
+      <div class="card-h" style="margin-bottom:6px"><span>microfono</span></div>
       <div class="vu"><i id="r-vu"></i></div>
       <div class="step">
         <div class="step-n">1</div>
         <div class="step-b">
-          <label class="field"><span>Codice stanza — portalo sull'altro telefono</span><textarea id="r-offer" readonly></textarea></label>
+          <label class="field"><span>Codice stanza — portalo sull'altro dispositivo</span><textarea id="r-offer" readonly></textarea></label>
           <button class="mini" id="r-copy">copia codice</button>
         </div>
       </div>
       <div class="step">
         <div class="step-n">2</div>
         <div class="step-b">
-          <label class="field"><span>Risposta — incollala qui</span><textarea id="r-answer" placeholder="incolla il codice che compare sull'altro telefono"></textarea></label>
+          <label class="field"><span>Risposta — incollala qui</span><textarea id="r-answer" placeholder="incolla il codice che compare sull'altro dispositivo"></textarea></label>
           <button class="btn mint" id="r-connect">Attiva il collegamento</button>
           <div class="err" id="r-err2"></div>
         </div>
@@ -272,9 +271,16 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
     </div>
 
     <div id="r-step2" class="hide">
-      <p style="font-weight:500;color:var(--ink)">Collegamento attivo. Spegni lo schermo per non illuminare la stanza — tocca per riaccenderlo.</p>
+      <p style="font-weight:500;color:var(--ink)">Collegamento attivo.</p>
+      <div class="pane" id="r-calbox" style="margin-top:0">
+        <div class="card-h"><span>taratura della stanza</span><span class="val" id="r-calstate">da fare</span></div>
+        <p id="r-caltext">Accendi ora il rumore bianco o il ventilatore, come li tenete di notte, ed esci dalla stanza. Ascolto 15 secondi e metto la soglia appena sopra il fondo.</p>
+        <button class="btn giallo" id="r-calgo">Ascolta la stanza · 15s</button>
+        <div class="calbar hide" id="r-calbarwrap"><i id="r-calbar"></i></div>
+      </div>
+      <div class="card-h" style="margin:16px 0 6px"><span>microfono</span></div>
+      <div class="vu"><i id="r-vu2"></i></div>
       <div class="videobox" id="r-prevbox2"><video id="r-preview2" autoplay playsinline muted></video></div>
-      <div class="vu" style="margin-top:12px"><i id="r-vu2"></i></div>
       <button class="btn sky" id="r-dim" style="margin-top:16px">Spegni lo schermo</button>
       <div class="note">Lascia la pagina aperta e in primo piano, con il dispositivo sotto carica: se va in sospensione il collegamento cade.</div>
     </div>
@@ -335,10 +341,25 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
       </div>
       <div class="gauge"><b id="p-level">0</b><span class="lab" id="p-mood">quiete</span></div>
 
+      <!-- ASCOLTO -->
+      <div class="card-n">
+        <div class="card-h"><span>ascolto</span><span class="val" id="p-filtstate">filtro attivo</span></div>
+        <div class="seg" id="p-filter">
+          <button data-f="on" class="sel">Filtro anti-rumore</button><button data-f="off">Audio grezzo</button>
+        </div>
+        <div class="card-h" style="margin:14px 0 0"><span>volume ascolto</span></div>
+        <input type="range" id="p-lvol" min="0" max="100" value="80">
+      </div>
+
       <!-- TARATURA -->
       <div class="card-n" id="p-cal">
         <div class="card-h"><span>taratura della stanza</span><span class="val" id="p-calstate">da fare</span></div>
-        <p id="p-caltext">Accendi ora il rumore bianco o il ventilatore, come li tenete di notte. Ascolto 15 secondi e metto la soglia appena sopra il fondo.</p>
+        <p id="p-caltext">Si avvia dal dispositivo nella stanza — è lì che accendete ventilatore e rumore bianco. Da qui puoi lanciarla a distanza.</p>
+        <div class="card-h"><span>rilevamento</span></div>
+        <div class="seg" id="p-detect" style="margin-bottom:12px">
+          <button data-d="band" class="sel">Banda del pianto</button><button data-d="tot">Volume totale</button>
+        </div>
+        <div class="card-h"><span>margine sopra il fondo</span></div>
         <div class="seg" id="p-margin" style="margin-bottom:12px">
           <button data-m="6">Sensibile</button><button data-m="12" class="sel">Normale</button><button data-m="20">Tollerante</button>
         </div>
@@ -356,20 +377,19 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
         <input type="range" id="p-thr" min="5" max="95" value="35">
       </div>
 
-      <!-- ALLARME -->
       <div class="card-n">
         <div class="card-h"><span>allarme quando piange</span><span class="val" id="p-alarmstate">spento</span></div>
         <div class="seg" id="p-alarmkind">
           <button data-k="off" class="sel">Nessuno</button><button data-k="bip">Bip</button>
           <button data-k="sirena">Sirena</button><button data-k="campana">Campana</button>
         </div>
-        <div class="card-h" style="margin:14px 0 0"><span>volume</span></div>
+        <div class="card-h" style="margin:14px 0 0"><span>volume allarme</span></div>
         <input type="range" id="p-vol" min="10" max="100" value="70">
-        <label class="check" id="p-insist-l" style="margin-top:14px;background:var(--night2);color:#fff;border-color:#fff;box-shadow:2px 2px 0 rgba(0,0,0,.35)">
+        <label class="check" style="margin-top:14px;background:var(--night2);color:#fff;border-color:#fff;box-shadow:2px 2px 0 rgba(0,0,0,.35)">
           <input type="checkbox" id="p-insist" checked> Insisti finché non lo tacito</label>
       </div>
 
-      <div class="videobox hide" id="p-videobox"><video id="p-video" autoplay playsinline></video></div>
+      <div class="videobox hide" id="p-videobox"><video id="p-video" autoplay playsinline muted></video></div>
 
       <div class="tools">
         <button class="tool on" id="t-alert">avvisi<small id="t-alert-s">attivi</small></button>
@@ -380,6 +400,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
       <div class="log" id="p-log"></div>
     </div>
   </div>
+  <audio id="p-keep" autoplay playsinline muted></audio>
 </section>
 
 <div id="p-banner"><div style="flex:1"><b>Ada si è svegliata</b><small id="p-bannert"></small></div><button class="mini" id="p-hush">Tacita</button></div>
@@ -394,7 +415,7 @@ const encode=o=>btoa(unescape(encodeURIComponent(JSON.stringify(o))));
 const decode=s=>JSON.parse(decodeURIComponent(escape(atob(s.trim().replace(/\s+/g,"")))));
 function show(id){$$(".screen").forEach(s=>s.classList.remove("on"));$(id).classList.add("on");}
 function err(el,msg){el.textContent=msg;el.classList.toggle("on",!!msg);}
-function segPick(container,btn){container.querySelectorAll("button").forEach(b=>b.classList.remove("sel"));btn.classList.add("sel");}
+function segPick(c,b){c.querySelectorAll("button").forEach(x=>x.classList.remove("sel"));b.classList.add("sel");}
 async function copy(text,btn){
   try{await navigator.clipboard.writeText(text);}catch(e){
     const t=document.createElement("textarea");t.value=text;document.body.appendChild(t);t.select();
@@ -415,15 +436,27 @@ function setStatus(dot,txt,st){
   const m={idle:["","in attesa"],connecting:["","collegamento…"],live:["live","collegato"],lost:["warn","collegamento perso"]};
   const v=m[st]||m.idle;dot.className="dot "+v[0];txt.textContent=v[1];
 }
-function rmsLevel(analyser,buf){
-  analyser.getByteTimeDomainData(buf);
+/* livello sul volume totale (usato per la barra microfono nella stanza) */
+function rmsLevel(an,buf){
+  an.getByteTimeDomainData(buf);
   let sum=0;for(let i=0;i<buf.length;i++){const v=(buf[i]-128)/128;sum+=v*v;}
   const db=20*Math.log10(Math.sqrt(sum/buf.length)||1e-8);
   return Math.max(0,Math.min(100,Math.round((db+62)/62*100)));
 }
+/* livello sulla banda della voce: 300–3000 Hz, dove sta il pianto
+   e dove ventilatore (sotto) e sibilo del rumore bianco (sopra) pesano meno */
+function bandLevel(an,fbuf,sr){
+  an.getByteFrequencyData(fbuf);
+  const binHz=sr/an.fftSize;
+  const i0=Math.max(1,Math.floor(300/binHz)),i1=Math.min(fbuf.length-1,Math.ceil(3000/binHz));
+  let sum=0,pk=0;
+  for(let i=i0;i<=i1;i++){sum+=fbuf[i];if(fbuf[i]>pk)pk=fbuf[i];}
+  const mean=sum/(i1-i0+1);
+  return Math.max(0,Math.min(100,Math.round((mean*.65+pk*.35)/255*100)));
+}
 
 /* ══════ STANZA ══════ */
-const R={pc:null,stream:null,mode:"av",facing:"user",an:null,buf:null};
+const R={pc:null,dc:null,stream:null,mode:"av",facing:"user",waiting:false};
 $("#go-room").onclick=()=>show("#s-room");
 $("#r-reset").onclick=()=>location.reload();
 $("#p-reset").onclick=()=>location.reload();
@@ -447,10 +480,24 @@ $("#r-start").onclick=async function(){
   if(!wantVideo){$("#r-prevbox").classList.add("hide");$("#r-prevbox2").classList.add("hide");}
   else $("#r-preview").srcObject=R.stream;
   $("#r-step0").classList.add("hide");$("#r-step1").classList.remove("hide");
-  keepAwake();setStatus($("#r-dot"),$("#r-status"),"connecting");
-  localVU();
+  keepAwake();setStatus($("#r-dot"),$("#r-status"),"connecting");localVU();
 
   R.pc=new RTCPeerConnection(ICE);
+  R.dc=R.pc.createDataChannel("ctl");
+  R.dc.onmessage=e=>{
+    let m;try{m=JSON.parse(e.data);}catch(_){return;}
+    if(m.c==="caldone"){
+      $("#r-calstate").textContent="fondo "+m.base;
+      $("#r-caltext").textContent="Fondo della stanza "+m.base+", soglia "+m.thr+" ("+m.mode+"). Rifalla se cambiate ventilatore, rumore bianco o posizione del dispositivo.";
+      $("#r-calgo").textContent="Rifai la taratura";$("#r-calgo").disabled=false;
+      $("#r-calbarwrap").classList.add("hide");$("#r-calbar").style.width="0%";R.waiting=false;
+    }else if(m.c==="calfail"){
+      $("#r-calstate").textContent="non riuscita";
+      $("#r-caltext").textContent="L'altro dispositivo non riceve audio: controlla che il microfono qui sia acceso e che la barra si muova.";
+      $("#r-calgo").textContent="Riprova";$("#r-calgo").disabled=false;
+      $("#r-calbarwrap").classList.add("hide");R.waiting=false;
+    }
+  };
   R.stream.getTracks().forEach(t=>R.pc.addTrack(t,R.stream));
   R.pc.addTransceiver("audio",{direction:"recvonly"});
   R.pc.ontrack=e=>{if(e.track.kind==="audio")$("#r-talkback").srcObject=e.streams[0];};
@@ -472,10 +519,22 @@ function localVU(){
     const an=ctx.createAnalyser();an.fftSize=1024;
     ctx.createMediaStreamSource(R.stream).connect(an);
     const buf=new Uint8Array(an.fftSize);
-    setInterval(()=>{const l=rmsLevel(an,buf);
-      $("#r-vu").style.width=l+"%";$("#r-vu2").style.width=l+"%";},120);
+    setInterval(()=>{const l=rmsLevel(an,buf);$("#r-vu").style.width=l+"%";$("#r-vu2").style.width=l+"%";},120);
   }catch(e){}
 }
+$("#r-calgo").onclick=function(){
+  if(R.waiting||!R.dc||R.dc.readyState!=="open")return;
+  R.waiting=true;this.disabled=true;
+  R.dc.send(JSON.stringify({c:"cal"}));
+  $("#r-calstate").textContent="in ascolto";
+  $("#r-calbarwrap").classList.remove("hide");
+  let n=0;const total=150;
+  const iv=setInterval(()=>{
+    n++;$("#r-calbar").style.width=(n/total*100)+"%";
+    $("#r-calgo").textContent="ascolto… "+Math.ceil((total-n)/10)+"s";
+    if(n>=total)clearInterval(iv);
+  },100);
+};
 $("#r-copy").onclick=function(){copy($("#r-offer").value,this);};
 $("#r-connect").onclick=async function(){
   err($("#r-err2"),"");
@@ -490,9 +549,10 @@ $("#r-dim").onclick=()=>$("#safelight").classList.add("on");
 $("#safelight").onclick=()=>$("#safelight").classList.remove("on");
 
 /* ══════ GENITORE ══════ */
-const P={pc:null,micTrack:null,ctx:null,master:null,analyser:null,buf:null,level:0,
+const P={pc:null,dc:null,micTrack:null,ctx:null,master:null,listen:null,hp:null,peak:null,lp:null,
+  analyser:null,buf:null,fbuf:null,level:0,detect:"band",filter:true,lvol:.8,
   hist:new Array(200).fill(0),over:0,lastAlert:0,alerts:true,sound:true,thr:35,
-  base:null,margin:12,calibrating:false,alarmKind:"off",vol:.7,insist:true,alarmTimer:null,ringing:false};
+  base:null,margin:12,calibrating:false,alarmKind:"off",vol:.7,insist:true,alarmTimer:null};
 
 $("#go-parent").onclick=()=>show("#s-parent");
 $("#p-paste").onclick=async function(){
@@ -509,9 +569,14 @@ $("#p-connect").onclick=async function(){
   setStatus($("#p-dot"),$("#p-status"),"connecting");
 
   P.pc=new RTCPeerConnection(ICE);
+  P.pc.ondatachannel=e=>{
+    P.dc=e.channel;
+    P.dc.onmessage=ev=>{let m;try{m=JSON.parse(ev.data);}catch(_){return;}
+      if(m.c==="cal")startCalibration(true);};
+  };
   P.pc.ontrack=e=>{
     const st=e.streams[0],v=$("#p-video");
-    if(v.srcObject!==st){v.srcObject=st;startMeter(st);}
+    if(v.srcObject!==st){v.srcObject=st;$("#p-keep").srcObject=st;startAudio(st);}
     if(st.getVideoTracks().length)$("#p-videobox").classList.remove("hide");
   };
   P.pc.onconnectionstatechange=()=>{
@@ -541,22 +606,44 @@ $("#p-connect").onclick=async function(){
 };
 $("#p-copy").onclick=function(){copy($("#p-answer").value,this);};
 
-function startMeter(stream){
+/* catena audio: sorgente → [taglio bassi → voce → taglio alti] → ascolto
+   L'analisi lavora sulla sorgente pulita, così il filtro non falsa la soglia. */
+function startAudio(stream){
   if(!stream.getAudioTracks().length)return;
   try{
     P.ctx=new (window.AudioContext||window.webkitAudioContext)();
     if(P.ctx.state==="suspended")P.ctx.resume();
-    P.master=P.ctx.createGain();P.master.gain.value=P.vol;P.master.connect(P.ctx.destination);
-    P.analyser=P.ctx.createAnalyser();P.analyser.fftSize=1024;P.analyser.smoothingTimeConstant=.6;
+    const src=P.ctx.createMediaStreamSource(stream);
+
+    P.analyser=P.ctx.createAnalyser();
+    P.analyser.fftSize=2048;P.analyser.smoothingTimeConstant=.6;
+    P.analyser.minDecibels=-90;P.analyser.maxDecibels=-25;
     P.buf=new Uint8Array(P.analyser.fftSize);
-    P.ctx.createMediaStreamSource(stream).connect(P.analyser);
+    P.fbuf=new Uint8Array(P.analyser.frequencyBinCount);
+    src.connect(P.analyser);
+
+    P.hp=P.ctx.createBiquadFilter();P.hp.type="highpass";
+    P.peak=P.ctx.createBiquadFilter();P.peak.type="peaking";P.peak.frequency.value=1100;P.peak.Q.value=.9;
+    P.lp=P.ctx.createBiquadFilter();P.lp.type="lowpass";
+    P.listen=P.ctx.createGain();P.listen.gain.value=P.lvol;
+    src.connect(P.hp);P.hp.connect(P.peak);P.peak.connect(P.lp);P.lp.connect(P.listen);
+    P.listen.connect(P.ctx.destination);
+    applyFilter();
+
+    P.master=P.ctx.createGain();P.master.gain.value=P.vol;P.master.connect(P.ctx.destination);
     requestAnimationFrame(tick);setInterval(pushHistory,3000);
   }catch(e){}
+}
+function applyFilter(){
+  if(!P.hp)return;
+  if(P.filter){P.hp.frequency.value=180;P.peak.gain.value=6;P.lp.frequency.value=5000;}
+  else{P.hp.frequency.value=20;P.peak.gain.value=0;P.lp.frequency.value=20000;}
+  $("#p-filtstate").textContent=P.filter?"filtro attivo":"audio grezzo";
 }
 const hero=$("#p-hero");
 function tick(){
   if(P.analyser){
-    const lv=rmsLevel(P.analyser,P.buf);
+    const lv=P.detect==="band"?bandLevel(P.analyser,P.fbuf,P.ctx.sampleRate):rmsLevel(P.analyser,P.buf);
     P.level=P.level*.7+lv*.3;
     render();if(!P.calibrating)checkAlert();
   }
@@ -569,53 +656,57 @@ function render(){
   hero.style.setProperty("--zop",loud?0:Math.max(.15,1-l/P.thr));
   hero.style.setProperty("--shut",loud?0:1);
   hero.style.setProperty("--open",loud?1:0);
-  hero.classList.toggle("sveglia",loud);
+  hero.classList.toggle("sveglia",loud&&!P.calibrating);
   const mood=$("#p-mood");
   mood.textContent=P.calibrating?"ascolto…":(loud?"sveglia!":(l>P.thr*.8?"si gira":"quiete"));
   mood.classList.toggle("up",loud&&!P.calibrating);
 }
-
 /* ── taratura ── */
 $("#p-margin").onclick=e=>{const b=e.target.closest("button");if(!b)return;
-  segPick($("#p-margin"),b);P.margin=+b.dataset.m;if(P.base!==null)applyCal();};
-$("#p-calgo").onclick=function(){
-  if(P.calibrating||!P.analyser)return;
+  segPick($("#p-margin"),b);P.margin=+b.dataset.m;if(P.base!==null)applyCal(true);};
+$("#p-detect").onclick=e=>{const b=e.target.closest("button");if(!b)return;
+  segPick($("#p-detect"),b);P.detect=b.dataset.d;P.base=null;P.hist.fill(0);
+  $("#p-calstate").textContent="da rifare";
+  $("#p-caltext").textContent="Hai cambiato modo di rilevamento: le due scale non coincidono, rifai la taratura.";
+  drawTrace();};
+$("#p-calgo").onclick=()=>startCalibration(false);
+function send(o){if(P.dc&&P.dc.readyState==="open")P.dc.send(JSON.stringify(o));}
+function startCalibration(remote){
+  if(P.calibrating)return;
+  if(!P.analyser){if(remote)send({c:"calfail"});return;}
   if(P.ctx&&P.ctx.state==="suspended")P.ctx.resume();
-  P.calibrating=true;this.disabled=true;
+  P.calibrating=true;$("#p-calgo").disabled=true;
   $("#p-calbarwrap").classList.remove("hide");
+  $("#p-calstate").textContent=remote?"avviata dalla stanza":"in ascolto";
   const samples=[];let n=0;const total=150;
-  $("#p-calstate").textContent="in ascolto";
   const iv=setInterval(()=>{
     samples.push(P.level);n++;
     $("#p-calbar").style.width=(n/total*100)+"%";
     $("#p-calgo").textContent="ascolto… "+Math.ceil((total-n)/10)+"s";
     if(n>=total){
-      clearInterval(iv);
-      samples.sort((a,b)=>a-b);
+      clearInterval(iv);samples.sort((a,b)=>a-b);
       P.base=Math.round(samples[Math.floor(samples.length*.9)]);
       P.calibrating=false;
       $("#p-calbarwrap").classList.add("hide");$("#p-calbar").style.width="0%";
       $("#p-calgo").textContent="Rifai la taratura";$("#p-calgo").disabled=false;
-      applyCal();
-      logEvent("taratura: fondo "+P.base);
+      applyCal(true);logEvent("taratura: fondo "+P.base);
     }
   },100);
-};
-function applyCal(){
+}
+function applyCal(notify){
   P.thr=Math.min(95,Math.max(8,P.base+P.margin));
   $("#p-thr").value=P.thr;$("#p-thrval").textContent=P.thr;
   $("#p-calstate").textContent="fondo "+P.base;
-  $("#p-caltext").textContent="Fondo della stanza "+P.base+", soglia "+P.thr+". Rifalla se cambiate ventilatore, rumore bianco o posizione del dispositivo.";
+  const mode=P.detect==="band"?"banda del pianto":"volume totale";
+  $("#p-caltext").textContent="Fondo "+P.base+", soglia "+P.thr+", misurati sulla "+mode+". Rifalla se cambiano ventilatore, rumore bianco o posizione del dispositivo.";
   drawTrace();
+  if(notify)send({c:"caldone",base:P.base,thr:P.thr,mode:mode});
 }
-
 /* ── avvisi e allarme ── */
 function checkAlert(){
   const now=Date.now();
   P.over=P.level>=P.thr?P.over+1:Math.max(0,P.over-2);
-  if(P.alerts&&P.over>70&&now-P.lastAlert>20000){
-    P.lastAlert=now;P.over=0;fireAlert();
-  }
+  if(P.alerts&&P.over>70&&now-P.lastAlert>20000){P.lastAlert=now;P.over=0;fireAlert();}
 }
 function fireAlert(){
   if(navigator.vibrate)navigator.vibrate([300,120,300,120,400]);
@@ -624,17 +715,12 @@ function fireAlert(){
   $("#p-last").textContent="ultimo alle "+t;
   if(P.alarmKind==="off")return;
   $("#p-bannert").textContent="rilevato alle "+t;
-  $("#p-banner").classList.add("on");
-  P.ringing=true;playAlarm();
-  if(P.insist){
-    clearInterval(P.alarmTimer);
+  $("#p-banner").classList.add("on");playAlarm();
+  if(P.insist){clearInterval(P.alarmTimer);
     P.alarmTimer=setInterval(()=>{playAlarm();if(navigator.vibrate)navigator.vibrate([250,150,250]);},4000);
   }else setTimeout(hush,9000);
 }
-function hush(){
-  clearInterval(P.alarmTimer);P.alarmTimer=null;P.ringing=false;
-  $("#p-banner").classList.remove("on");
-}
+function hush(){clearInterval(P.alarmTimer);P.alarmTimer=null;$("#p-banner").classList.remove("on");}
 $("#p-hush").onclick=hush;
 function tone(freq,start,dur,type,peak){
   const o=P.ctx.createOscillator(),g=P.ctx.createGain(),t=P.ctx.currentTime+start;
@@ -642,25 +728,20 @@ function tone(freq,start,dur,type,peak){
   g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(peak||.5,t+.03);
   g.gain.exponentialRampToValueAtTime(.001,t+dur);
   o.connect(g);g.connect(P.master);o.start(t);o.stop(t+dur+.05);
-  return o;
 }
 function playAlarm(){
   if(!P.ctx||!P.master)return;
   if(P.ctx.state==="suspended")P.ctx.resume();
-  if(P.alarmKind==="bip"){[0,.35,.7].forEach(s=>tone(920,s,.22,"square",.35));}
+  if(P.alarmKind==="bip")[0,.35,.7].forEach(s=>tone(920,s,.22,"square",.35));
   else if(P.alarmKind==="sirena"){
     for(let k=0;k<2;k++){
-      const t=P.ctx.currentTime+k*1.1;
-      const o=P.ctx.createOscillator(),g=P.ctx.createGain();
+      const t=P.ctx.currentTime+k*1.1,o=P.ctx.createOscillator(),g=P.ctx.createGain();
       o.type="sawtooth";o.frequency.setValueAtTime(480,t);
       o.frequency.linearRampToValueAtTime(980,t+.5);o.frequency.linearRampToValueAtTime(480,t+1);
-      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.3,t+.08);
-      g.gain.linearRampToValueAtTime(0,t+1);
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.3,t+.08);g.gain.linearRampToValueAtTime(0,t+1);
       o.connect(g);g.connect(P.master);o.start(t);o.stop(t+1.05);
     }
-  }else if(P.alarmKind==="campana"){
-    [0,.5,1].forEach(s=>{tone(1318,s,1.4,"triangle",.4);tone(1976,s,.9,"sine",.18);});
-  }
+  }else if(P.alarmKind==="campana")[0,.5,1].forEach(s=>{tone(1318,s,1.4,"triangle",.4);tone(1976,s,.9,"sine",.18);});
 }
 $("#p-alarmkind").onclick=e=>{const b=e.target.closest("button");if(!b)return;
   segPick($("#p-alarmkind"),b);P.alarmKind=b.dataset.k;
@@ -668,9 +749,12 @@ $("#p-alarmkind").onclick=e=>{const b=e.target.closest("button");if(!b)return;
   if(P.ctx&&P.ctx.state==="suspended")P.ctx.resume();
   if(P.alarmKind!=="off")playAlarm();
 };
+$("#p-filter").onclick=e=>{const b=e.target.closest("button");if(!b)return;
+  segPick($("#p-filter"),b);P.filter=b.dataset.f==="on";applyFilter();};
+$("#p-lvol").oninput=function(){P.lvol=+this.value/100;
+  if(P.listen&&P.sound)P.listen.gain.value=P.lvol;};
 $("#p-vol").oninput=function(){P.vol=+this.value/100;if(P.master)P.master.gain.value=P.vol;};
 $("#p-insist").onchange=function(){P.insist=this.checked;};
-
 function logEvent(txt){
   const d=document.createElement("div");
   d.textContent=new Date().toLocaleTimeString("it-IT",{hour:"2-digit",minute:"2-digit"})+"  ·  "+txt;
@@ -691,10 +775,7 @@ function drawTrace(){
   const c=$("#trace");if(!c.width)return;
   const x=c.getContext("2d"),w=c.width/(window.devicePixelRatio||1),h=62;
   x.clearRect(0,0,w,h);
-  if(P.base!==null){
-    const bh=(P.base/100)*(h-10);
-    x.fillStyle="rgba(255,255,255,.08)";x.fillRect(0,(h-bh)/2,w,bh);
-  }
+  if(P.base!==null){const bh=(P.base/100)*(h-10);x.fillStyle="rgba(255,255,255,.08)";x.fillRect(0,(h-bh)/2,w,bh);}
   const n=P.hist.length,bw=w/n;
   for(let i=0;i<n;i++){
     const v=P.hist[i]/100,bh=Math.max(2,v*(h-10)),bx=i*bw,bwid=Math.max(1.5,bw-1.6);
@@ -706,13 +787,13 @@ function drawTrace(){
   x.strokeStyle="rgba(255,211,110,.55)";x.setLineDash([3,4]);x.beginPath();
   const ty=(h-(P.thr/100)*(h-10))/2;x.moveTo(0,ty);x.lineTo(w,ty);x.stroke();x.setLineDash([]);
 }
-/* ── comandi ── */
 $("#p-thr").oninput=function(){P.thr=+this.value;$("#p-thrval").textContent=this.value;drawTrace();};
 $("#t-alert").onclick=function(){P.alerts=!P.alerts;this.classList.toggle("on",P.alerts);
   $("#t-alert-s").textContent=P.alerts?"attivi":"spenti";if(!P.alerts)hush();
   if(P.ctx&&P.ctx.state==="suspended")P.ctx.resume();};
-$("#t-sound").onclick=function(){P.sound=!P.sound;$("#p-video").muted=!P.sound;this.classList.toggle("on",P.sound);
-  $("#t-sound-s").textContent=P.sound?"acceso":"muto";};
+$("#t-sound").onclick=function(){P.sound=!P.sound;
+  if(P.listen)P.listen.gain.value=P.sound?P.lvol:0;
+  this.classList.toggle("on",P.sound);$("#t-sound-s").textContent=P.sound?"acceso":"muto";};
 $("#t-night").onclick=function(){const on=$("#s-parent").classList.toggle("deep");this.classList.toggle("on",on);};
 const talk=$("#t-talk");
 function talkOn(e){e.preventDefault();if(P.micTrack){P.micTrack.enabled=true;talk.classList.add("live");talk.textContent="Ti sta ascoltando";}}
