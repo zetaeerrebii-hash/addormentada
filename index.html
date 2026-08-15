@@ -11,802 +11,493 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.4/peerjs.min.js"></script>
 <style>
 :root{
-  --ink:#1B1749;--night:#201C4E;--night2:#2C2766;--cream:#FFF4E6;--sky:#CDE8FF;
+  --ink:#1B1749;--night:#201C4E;--night2:#2C2766;--cream:#FFF4E6;
   --rosa:#FF8FA8;--giallo:#FFD36E;--menta:#8CE0C8;--lilla:#B49BFF;
   --tondo:"Zen Maru Gothic",-apple-system,system-ui,sans-serif;--mono:"DM Mono",ui-monospace,monospace;
-  --ombra:4px 4px 0 var(--ink);--ombra-s:3px 3px 0 var(--ink);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
 body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--tondo);font-weight:400;
   font-size:16px;line-height:1.55;overscroll-behavior:none;
   padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
-.screen{display:none;min-height:100dvh;flex-direction:column;position:relative;overflow:hidden}
+.screen{display:none;min-height:100dvh;flex-direction:column}
 .screen.on{display:flex}
-.wrap{width:100%;max-width:540px;margin:0 auto;padding:22px 20px 40px;flex:1;display:flex;flex-direction:column;position:relative;z-index:2}
-h1{font-weight:900;font-size:clamp(31px,8.8vw,42px);letter-spacing:-.03em;margin:0;line-height:1}
+.wrap{width:100%;max-width:480px;margin:0 auto;padding:24px 20px 34px;flex:1;display:flex;flex-direction:column}
+h1{font-weight:900;font-size:clamp(30px,8.4vw,40px);letter-spacing:-.03em;margin:0;line-height:1}
 h1 em{font-style:normal;color:var(--rosa);text-shadow:2px 2px 0 var(--ink)}
-.pre{display:block;font-weight:500;font-size:clamp(21px,6vw,28px);color:var(--lilla);-webkit-text-stroke:.6px var(--ink);margin-bottom:-2px}
-h2{font-weight:700;font-size:21px;margin:0 0 8px;letter-spacing:-.01em}
+.pre{display:block;font-weight:500;font-size:clamp(20px,5.6vw,26px);color:var(--lilla);-webkit-text-stroke:.6px var(--ink)}
+h2{font-weight:700;font-size:20px;margin:0 0 10px}
 p{margin:0 0 14px;font-size:14.5px;color:#4A4485}
-.tag{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
-  background:var(--giallo);border:2px solid var(--ink);border-radius:99px;padding:3px 11px;box-shadow:var(--ombra-s)}
-.tag.mint{background:var(--menta)}.tag.lilla{background:var(--lilla)}
-.drift{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
-.drift svg{position:absolute;opacity:.5}
-.d1{width:150px;top:8%;animation:float 46s linear infinite}
-.d2{width:110px;top:44%;animation:float 64s linear infinite;animation-delay:-20s;opacity:.35!important}
-.d3{width:90px;top:74%;animation:float 54s linear infinite;animation-delay:-38s;opacity:.4!important}
-@keyframes float{from{transform:translateX(-40vw)}to{transform:translateX(120vw)}}
 button{font-family:var(--tondo);cursor:pointer}
-.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px 18px;
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:16px 18px;
   background:var(--rosa);color:var(--ink);border:2.5px solid var(--ink);border-radius:99px;
-  font-weight:700;font-size:16px;box-shadow:var(--ombra);transition:transform .1s,box-shadow .1s}
+  font-weight:700;font-size:16px;box-shadow:4px 4px 0 var(--ink);transition:transform .1s,box-shadow .1s}
 .btn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
-.btn.mint{background:var(--menta)}.btn.giallo{background:var(--giallo)}.btn.sky{background:var(--sky)}
+.btn.sky{background:#CDE8FF}.btn.giallo{background:var(--giallo)}
 .btn[disabled]{background:#E7E1D6;color:#8A85A8;cursor:not-allowed}
 .btn .ic{width:30px;height:26px;flex:none}
 .mini{font-family:var(--mono);font-size:11.5px;padding:7px 13px;background:#fff;border:2px solid var(--ink);
   border-radius:99px;box-shadow:2px 2px 0 var(--ink);color:var(--ink)}
-.mini:active{transform:translate(2px,2px);box-shadow:none}
-.stack>*+*{margin-top:12px}
-.check{display:flex;gap:10px;align-items:center;font-size:14px;background:#fff;border:2px solid var(--ink);
-  border-radius:99px;padding:9px 15px;box-shadow:2px 2px 0 var(--ink);width:fit-content}
-.check input{width:17px;height:17px;accent-color:var(--rosa)}
-.seg{display:flex;gap:7px;flex-wrap:wrap}
-.seg button{flex:1;min-width:78px;padding:9px 8px;background:#fff;border:2.5px solid var(--ink);border-radius:99px;
-  font-size:13px;font-weight:500;box-shadow:2px 2px 0 var(--ink)}
-.seg button.sel{background:var(--lilla)}
-.seg button:active{transform:translate(2px,2px);box-shadow:none}
-.statusbar{display:flex;align-items:center;gap:9px;margin-bottom:16px}
+input:focus-visible,button:focus-visible{outline:3px solid var(--lilla);outline-offset:3px}
+.statusbar{display:flex;align-items:center;gap:9px;margin-bottom:18px}
 .chip{display:flex;align-items:center;gap:7px;background:#fff;border:2px solid var(--ink);border-radius:99px;
   padding:5px 12px;box-shadow:2px 2px 0 var(--ink);font-family:var(--mono);font-size:10.5px;
-  letter-spacing:.12em;text-transform:uppercase}
+  letter-spacing:.1em;text-transform:uppercase}
 .dot{width:9px;height:9px;border-radius:50%;background:#C9C3E4;flex:none}
-.dot.live{background:var(--menta);animation:pulse 2.4s ease-in-out infinite}
-.dot.warn{background:var(--rosa);animation:pulse 1s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:.45}50%{opacity:1}}
+.dot.live{background:var(--menta)}
+.dot.warn{background:var(--rosa);animation:blink 1s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:.4}50%{opacity:1}}
 .spacer{flex:1}
-/* ── codice a 4 cifre ── */
-.codebox{background:var(--giallo);border:3px solid var(--ink);border-radius:26px;padding:20px 16px;
-  box-shadow:6px 6px 0 var(--ink);text-align:center;margin-top:4px}
+.codebox{background:var(--giallo);border:3px solid var(--ink);border-radius:26px;padding:22px 16px;
+  box-shadow:6px 6px 0 var(--ink);text-align:center}
 .codebox .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase}
-.codebox .num{font-weight:900;font-size:clamp(52px,17vw,76px);letter-spacing:.14em;line-height:1.1;margin:4px 0 2px}
+.codebox .num{font-weight:900;font-size:clamp(56px,19vw,84px);letter-spacing:.14em;line-height:1.1;margin:4px 0}
 .codebox .sub{font-size:13.5px;color:#5A4A2A}
-input.code{width:100%;text-align:center;font-family:var(--tondo);font-weight:900;font-size:44px;letter-spacing:.22em;
-  padding:14px 10px 12px;border:3px solid var(--ink);border-radius:22px;box-shadow:var(--ombra);background:#fff;color:var(--ink)}
-input.code::placeholder{color:#D6CFEA;letter-spacing:.22em}
-input:focus-visible,button:focus-visible{outline:3px solid var(--lilla);outline-offset:3px}
-.videobox{margin-top:14px;background:var(--ink);border:2.5px solid var(--ink);border-radius:18px;overflow:hidden;
-  box-shadow:var(--ombra);transition:max-height .4s,opacity .4s,margin .4s;max-height:60vh}
-video{display:block;width:100%;max-height:42vh;object-fit:contain;background:#100E2A}
-.note{font-size:12.5px;color:#6B65A5;line-height:1.6;margin-top:18px;border-top:2.5px dashed #D8D1F0;padding-top:14px}
-.err{color:#D6385C;font-weight:500;font-size:13.5px;margin-top:10px;display:none}
+input.code{width:100%;text-align:center;font-family:var(--tondo);font-weight:900;font-size:46px;letter-spacing:.22em;
+  padding:16px 10px 14px;border:3px solid var(--ink);border-radius:24px;box-shadow:4px 4px 0 var(--ink);background:#fff;color:var(--ink)}
+input.code::placeholder{color:#D9D2EC}
+.vu{height:16px;border:2.5px solid var(--ink);border-radius:99px;background:#fff;overflow:hidden;box-shadow:2px 2px 0 var(--ink)}
+.vu i{display:block;height:100%;width:0%;background:var(--menta);transition:width .1s}
+.note{font-size:12.5px;color:#6B65A5;line-height:1.6;margin-top:auto;padding-top:20px;border-top:2.5px dashed #D8D1F0}
+.err{color:#D6385C;font-weight:500;font-size:13.5px;margin-top:12px;display:none}
 .err.on{display:block}
 .hide{display:none!important}
-.vu{height:14px;border:2.5px solid var(--ink);border-radius:99px;background:#fff;overflow:hidden;box-shadow:2px 2px 0 var(--ink)}
-.vu i{display:block;height:100%;width:0%;background:var(--menta);transition:width .1s}
-.pane{background:#fff;border:2.5px solid var(--ink);border-radius:20px;padding:16px;box-shadow:var(--ombra);margin-top:16px}
-.pane .card-h span{color:#6B65A5}
-.pane .card-h span.val{color:var(--ink);font-weight:500}
-.pane p{font-size:13.5px;margin:0 0 12px}
-.calbar{height:12px;border:2px solid #fff;border-radius:99px;overflow:hidden;background:rgba(0,0,0,.25);margin-top:10px}
-.calbar i{display:block;height:100%;width:0%;background:var(--giallo);transition:width .3s linear}
-.pane .calbar{border-color:var(--ink);background:#F1EDFF}
-#s-parent.night-sky{background:var(--night)}
-#s-parent.night-sky p{color:#B9B3E8}
-#s-parent.night-sky h2{color:#fff}
-#s-parent.night-sky .chip{background:var(--night2);color:#fff;border-color:#fff;box-shadow:2px 2px 0 rgba(0,0,0,.4)}
-.stars{position:absolute;inset:0;z-index:1;pointer-events:none;
-  background-image:radial-gradient(1.6px 1.6px at 12% 18%,#fff,transparent),radial-gradient(1.4px 1.4px at 78% 12%,#fff,transparent),
-  radial-gradient(1.8px 1.8px at 34% 42%,#FFD36E,transparent),radial-gradient(1.4px 1.4px at 88% 58%,#fff,transparent),
-  radial-gradient(1.5px 1.5px at 22% 72%,#fff,transparent),radial-gradient(1.7px 1.7px at 62% 86%,#B49BFF,transparent);
-  opacity:.75;animation:twinkle 5s ease-in-out infinite}
-@keyframes twinkle{0%,100%{opacity:.45}50%{opacity:.9}}
-.hero{position:relative;display:grid;place-items:center;padding:4px 0 0;z-index:2}
-#p-hero{width:min(70vw,270px);height:auto;display:block;
-  transform:translateY(calc(var(--bob,0) * -1px));transition:transform .25s cubic-bezier(.3,1.4,.5,1)}
-#p-hero .zzz{opacity:var(--zop,1);transition:opacity .4s}
-#p-hero .eye-shut{opacity:var(--shut,1)}
-#p-hero .eye-open{opacity:var(--open,0)}
-#p-hero .cloud-body{fill:#fff;transition:fill .3s}
-#p-hero.sveglia .cloud-body{fill:var(--rosa)}
-#p-hero.sveglia{animation:jiggle .5s ease-in-out infinite}
-#p-hero.offline{filter:grayscale(1);opacity:.4}
-@keyframes jiggle{0%,100%{transform:translateY(-8px) rotate(-1.5deg)}50%{transform:translateY(-14px) rotate(1.5deg)}}
-.gauge{display:flex;align-items:baseline;justify-content:center;gap:12px;position:relative;z-index:2}
-.gauge b{font-weight:900;font-size:48px;line-height:1;letter-spacing:-.04em;color:#fff}
+/* ── ascolto ── */
+#s-p.live-bg{background:var(--night)}
+#s-p.live-bg .chip{background:var(--night2);color:#fff;border-color:#fff;box-shadow:2px 2px 0 rgba(0,0,0,.4)}
+.hero{display:grid;place-items:center;padding:10px 0 2px}
+#cat{width:min(62vw,230px);transform:translateY(calc(var(--bob,0) * -1px));transition:transform .25s cubic-bezier(.3,1.4,.5,1)}
+#cat .zzz{opacity:var(--zop,1);transition:opacity .4s}
+#cat .shut{opacity:var(--shut,1)}
+#cat .open{opacity:var(--open,0)}
+#cat .cloud{fill:#fff;transition:fill .3s}
+#cat.up .cloud{fill:var(--rosa)}
+#cat.up{animation:jig .5s ease-in-out infinite}
+#cat.off{filter:grayscale(1);opacity:.35}
+@keyframes jig{0%,100%{transform:translateY(-8px) rotate(-1.5deg)}50%{transform:translateY(-14px) rotate(1.5deg)}}
+.gauge{display:flex;align-items:baseline;justify-content:center;gap:12px;margin-bottom:4px}
+.gauge b{font-weight:900;font-size:46px;line-height:1;color:#fff}
 .gauge .lab{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;background:var(--menta);
-  color:var(--ink);border:2px solid var(--ink);border-radius:99px;padding:4px 12px;box-shadow:2px 2px 0 rgba(0,0,0,.35)}
-.gauge .lab.up{background:var(--rosa)}
-.card-n{background:var(--night2);border:2.5px solid #fff;border-radius:20px;padding:14px;margin-top:14px;
-  box-shadow:4px 4px 0 rgba(0,0,0,.35);position:relative;z-index:2}
-.card-n p{font-size:13px;color:#CFC9FF;margin:0 0 12px}
-.card-h{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:9px}
+  color:var(--ink);border:2px solid var(--ink);border-radius:99px;padding:4px 12px}
+.gauge .lab.hot{background:var(--rosa)}
+.card{background:var(--night2);border:2.5px solid #fff;border-radius:20px;padding:14px;margin-top:14px}
+.card-h{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
 .card-h span{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#CFC9FF}
 .card-h span.val{color:var(--giallo)}
-.card-n .seg button{background:var(--night2);color:#fff;border-color:#fff;box-shadow:2px 2px 0 rgba(0,0,0,.35)}
-.card-n .seg button.sel{background:var(--giallo);color:var(--ink);border-color:var(--ink)}
-canvas#trace{width:100%;height:62px;display:block;border-radius:10px;background:rgba(0,0,0,.22)}
+.seg{display:flex;gap:7px}
+.seg button{flex:1;padding:10px 6px;background:var(--night2);color:#fff;border:2.5px solid #fff;border-radius:99px;
+  font-size:13px;font-weight:500}
+.seg button.sel{background:var(--giallo);color:var(--ink);border-color:var(--ink)}
 input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:99px;
-  background:rgba(255,255,255,.22);border:2px solid #fff;margin-top:4px}
+  background:rgba(255,255,255,.22);border:2px solid #fff;margin-top:2px}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;
-  background:var(--giallo);border:2.5px solid var(--ink);cursor:pointer}
+  background:var(--giallo);border:2.5px solid var(--ink)}
 input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:var(--giallo);border:2.5px solid var(--ink)}
-.tools{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px;position:relative;z-index:2}
-.tool{padding:11px 4px;background:var(--night2);color:#fff;border:2.5px solid #fff;border-radius:16px;
-  font-size:12px;font-weight:500;line-height:1.25;text-align:center;box-shadow:3px 3px 0 rgba(0,0,0,.35)}
-.tool small{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;opacity:.72;display:block}
-.tool.on{background:var(--giallo);color:var(--ink);border-color:var(--ink)}
-.tool:active{transform:translate(2px,2px);box-shadow:none}
-.talk{grid-column:1/-1;padding:16px;font-size:15px;font-weight:700}
-.talk.live{background:var(--rosa);color:var(--ink);border-color:var(--ink)}
-.log{font-family:var(--mono);font-size:10.5px;color:#B9B3E8;margin-top:12px;max-height:70px;overflow:auto;position:relative;z-index:2}
-.log div{padding:3px 0;border-bottom:1px solid rgba(255,255,255,.12)}
-/* banner fissi */
+.ptt{width:100%;margin-top:14px;padding:20px;border:3px solid #fff;border-radius:24px;background:var(--night2);
+  color:#fff;font-size:16px;font-weight:700}
+.ptt.on{background:var(--rosa);color:var(--ink);border-color:var(--ink)}
+.log{font-family:var(--mono);font-size:10.5px;color:#9C95D8;margin-top:14px;max-height:64px;overflow:auto}
+.log div{padding:2px 0}
 .banner{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:40;
   border:3px solid var(--ink);border-radius:22px;padding:14px 16px;box-shadow:5px 5px 0 var(--ink);
-  display:none;align-items:center;gap:12px;animation:pop .3s ease-out}
+  display:none;align-items:center;gap:12px}
 .banner.on{display:flex}
 .banner b{font-size:16px;display:block;line-height:1.2}
 .banner small{font-family:var(--mono);font-size:10.5px}
-#p-banner{background:var(--rosa)}
-#lost{background:var(--lilla);bottom:calc(12px + env(safe-area-inset-bottom))}
-#lost .spin{width:20px;height:20px;border:3px solid var(--ink);border-right-color:transparent;border-radius:50%;
+#lost{background:var(--lilla)}
+#wake{background:var(--rosa)}
+.spin{width:20px;height:20px;border:3px solid var(--ink);border-right-color:transparent;border-radius:50%;
   animation:spin 1s linear infinite;flex:none}
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes pop{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
 .banner .mini{flex:none;background:var(--ink);color:#fff;border-color:var(--ink);box-shadow:none;padding:11px 16px;font-size:13px}
-#s-parent.deep{background:#0B0920}
-#s-parent.deep .stars{opacity:.25}
-#s-parent.deep .videobox{max-height:0;opacity:0;margin-top:0;border-width:0}
-#s-parent.deep .card-n,#s-parent.deep .log,#s-parent.deep .statusbar{opacity:.3}
-#s-parent.deep #p-hero{opacity:.62}
-#safelight{position:fixed;inset:0;background:#000;display:none;place-items:center;z-index:30;cursor:pointer}
-#safelight.on{display:grid}
-#safelight svg{width:130px;opacity:.14;animation:snore 7s ease-in-out infinite}
-@keyframes snore{0%,100%{opacity:.08;transform:translateY(2px)}50%{opacity:.2;transform:translateY(-4px)}}
-.safenote{position:absolute;bottom:34px;left:0;right:0;text-align:center;font-family:var(--mono);
-  font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#312B57}
-.ic{width:34px;height:30px;vertical-align:middle}
-.row-ic{display:flex;gap:6px;margin:14px 0 4px}
+#dark{position:fixed;inset:0;background:#000;display:none;place-items:center;z-index:30}
+#dark.on{display:grid}
+#dark .d-lvl{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:#2A2350}
+#dark svg{width:120px;opacity:.13}
+.ic{width:32px;height:28px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-<defs><g id="g-cloud"><rect x="16" y="62" width="88" height="22" rx="11"/>
-  <circle cx="40" cy="64" r="15"/><circle cx="62" cy="58" r="19"/><circle cx="86" cy="65" r="13"/></g></defs>
-<symbol id="a-cat" viewBox="0 0 120 100"><use href="#g-cloud" fill="#fff"/>
-  <ellipse cx="66" cy="50" rx="23" ry="12" fill="#FFD36E"/>
-  <path d="M88 50c9 0 11-6 9-12" stroke="#FFD36E" stroke-width="6" fill="none" stroke-linecap="round"/>
-  <circle cx="46" cy="44" r="13" fill="#FFD36E"/><path d="M37 35l-1-9 9 4zM53 32l4-8 3 8z" fill="#FFD36E"/>
-  <path d="M40 45q3 3.5 6 0M52 45q3 3.5 6 0" stroke="#1B1749" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-  <path d="M47 49h4" stroke="#1B1749" stroke-width="2.4" stroke-linecap="round"/></symbol>
-<symbol id="a-bunny" viewBox="0 0 120 100"><use href="#g-cloud" fill="#fff"/>
-  <ellipse cx="64" cy="51" rx="21" ry="12" fill="#FF8FA8"/><circle cx="85" cy="49" r="5" fill="#FFDCE5"/>
-  <circle cx="46" cy="45" r="12" fill="#FF8FA8"/>
-  <path d="M40 34c-3-11 0-16 3-16s5 6 3 15zM52 33c-1-11 2-15 5-14s3 7 0 14z" fill="#FF8FA8"/>
-  <path d="M40 46q3 3.5 6 0M50 46q3 3.5 6 0" stroke="#1B1749" stroke-width="2.4" fill="none" stroke-linecap="round"/></symbol>
-<symbol id="a-panda" viewBox="0 0 120 100"><use href="#g-cloud" fill="#fff"/>
-  <ellipse cx="64" cy="51" rx="22" ry="12" fill="#FFF"/><path d="M42 51a22 12 0 0 0 44 0z" fill="#1B1749" opacity=".12"/>
-  <circle cx="36" cy="41" r="5" fill="#1B1749"/><circle cx="56" cy="39" r="5" fill="#1B1749"/>
-  <circle cx="46" cy="45" r="13" fill="#fff" stroke="#1B1749" stroke-width="2"/>
-  <ellipse cx="41" cy="45" rx="4" ry="4.6" fill="#1B1749"/><ellipse cx="52" cy="45" rx="4" ry="4.6" fill="#1B1749"/>
-  <path d="M39 45q2 2.4 4 0M50 45q2 2.4 4 0" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-  <circle cx="46.5" cy="51" r="2" fill="#1B1749"/></symbol>
-<symbol id="a-bear" viewBox="0 0 120 100"><use href="#g-cloud" fill="#fff"/>
-  <ellipse cx="66" cy="51" rx="23" ry="12" fill="#B49BFF"/><circle cx="47" cy="44" r="14" fill="#B49BFF"/>
-  <circle cx="37" cy="33" r="6" fill="#B49BFF"/><circle cx="57" cy="32" r="6" fill="#B49BFF"/>
-  <ellipse cx="47" cy="50" rx="7" ry="5" fill="#EFE7FF"/>
-  <path d="M40 44q3 3.5 6 0M51 44q3 3.5 6 0" stroke="#1B1749" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-  <circle cx="47" cy="48" r="2.2" fill="#1B1749"/></symbol>
-<symbol id="a-bird" viewBox="0 0 120 100"><use href="#g-cloud" fill="#fff"/>
-  <ellipse cx="60" cy="48" rx="18" ry="14" fill="#8CE0C8"/><path d="M60 40q10 2 13 9-8 3-13-2z" fill="#5FCBAE"/>
-  <path d="M44 46l-8 3 8 3z" fill="#FFD36E"/>
-  <path d="M47 43q3 3.5 6 0" stroke="#1B1749" stroke-width="2.4" fill="none" stroke-linecap="round"/></symbol>
-<symbol id="a-cloudonly" viewBox="0 0 120 100"><use href="#g-cloud" fill="#fff"/></symbol>
+<symbol id="sym-cat" viewBox="0 0 120 108">
+  <g class="zzz" fill="#FFD36E" font-family="Zen Maru Gothic,sans-serif" font-weight="700">
+    <text x="74" y="26" font-size="13">z</text><text x="86" y="16" font-size="10">z</text><text x="95" y="9" font-size="7">z</text>
+  </g>
+  <g class="cloud" transform="translate(0,14)">
+    <rect x="16" y="62" width="88" height="22" rx="11"/><circle cx="40" cy="64" r="15"/>
+    <circle cx="62" cy="58" r="19"/><circle cx="86" cy="65" r="13"/>
+  </g>
+  <g transform="translate(0,14)">
+    <ellipse cx="66" cy="50" rx="23" ry="12" fill="#FFD36E"/>
+    <path d="M88 50c9 0 11-6 9-12" stroke="#FFD36E" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <circle cx="46" cy="44" r="13" fill="#FFD36E"/><path d="M37 35l-1-9 9 4zM53 32l4-8 3 8z" fill="#FFD36E"/>
+    <g class="shut"><path d="M40 45q3 3.5 6 0M52 45q3 3.5 6 0" stroke="#1B1749" stroke-width="2.4" fill="none" stroke-linecap="round"/></g>
+    <g class="open"><circle cx="43" cy="44" r="3.2" fill="#1B1749"/><circle cx="55" cy="44" r="3.2" fill="#1B1749"/></g>
+    <path d="M47 49h4" stroke="#1B1749" stroke-width="2.4" stroke-linecap="round"/>
+  </g>
+</symbol>
 </svg>
 
-<!-- ══ START ══ -->
+<!-- ══ SCELTA ══ -->
 <section id="s-start" class="screen on">
-  <div class="drift" aria-hidden="true">
-    <svg class="d1"><use href="#a-cat"/></svg><svg class="d2"><use href="#a-bunny"/></svg><svg class="d3"><use href="#a-cloudonly"/></svg>
-  </div>
   <div class="wrap">
-    <span class="tag">monitor notturno</span>
-    <div style="margin-top:14px"><span class="pre">La bella</span><h1>addorment<em>ADA</em></h1></div>
-    <p style="margin-top:14px">Un dispositivo resta nella stanza, l'altro resta con voi. Si accoppiano con un codice di quattro cifre e si riagganciano da soli se cade la linea.</p>
-    <div class="row-ic" aria-hidden="true">
-      <svg class="ic"><use href="#a-panda"/></svg><svg class="ic"><use href="#a-bear"/></svg><svg class="ic"><use href="#a-bird"/></svg>
+    <div><span class="pre">La bella</span><h1>addorment<em>ADA</em></h1></div>
+    <p style="margin-top:14px">Solo audio. Un dispositivo ascolta la stanza, l'altro sta con voi.</p>
+    <div style="margin:22px 0 0"><svg class="ic" style="width:80px;height:70px"><use href="#sym-cat"/></svg></div>
+    <div style="margin-top:22px">
+      <button class="btn giallo" id="go-r">Ascolta la stanza</button>
+      <button class="btn sky" id="go-p" style="margin-top:12px">Ricevi</button>
     </div>
-    <div class="stack" style="margin-top:20px">
-      <button class="btn" id="go-room"><svg class="ic" aria-hidden="true"><use href="#a-cat"/></svg>Resta nella stanza</button>
-      <button class="btn sky" id="go-parent"><svg class="ic" aria-hidden="true"><use href="#a-bunny"/></svg>Resta con voi</button>
-    </div>
-    <div class="note">Audio e video viaggiano direttamente fra i due dispositivi. Per agganciarsi serve la linea internet; il codice a quattro cifre passa da un servizio pubblico gratuito.<br><br>Non è un dispositivo medico e non sostituisce la sorveglianza diretta.</div>
+    <div class="note">Per agganciarsi serve la linea internet; poi l'audio viaggia direttamente fra i due dispositivi.<br><br>Non è un dispositivo medico e non sostituisce la sorveglianza diretta.</div>
   </div>
 </section>
 
 <!-- ══ STANZA ══ -->
-<section id="s-room" class="screen">
-  <div class="drift" aria-hidden="true"><svg class="d2"><use href="#a-cloudonly"/></svg></div>
+<section id="s-r" class="screen">
   <div class="wrap">
-    <div class="statusbar"><span class="chip"><span class="dot" id="r-dot"></span><span id="r-status">in attesa</span></span>
+    <div class="statusbar"><span class="chip"><span class="dot" id="r-dot"></span><span id="r-st">in attesa</span></span>
       <span class="spacer"></span><button class="mini" id="r-reset">ricomincia</button></div>
-    <span class="tag mint">stanza</span>
-    <h2 style="margin-top:12px">Il dispositivo che resta con la bambina</h2>
 
-    <div id="r-step0">
-      <p>Cosa deve trasmettere:</p>
-      <div class="seg" id="r-mode"><button data-m="av" class="sel">Video + audio</button><button data-m="a">Solo audio</button></div>
-      <div id="r-camrow" style="margin-top:12px">
-        <div class="card-h"><span>obiettivo</span></div>
-        <div class="seg" id="r-facing"><button data-f="user" class="sel">Frontale</button><button data-f="environment">Posteriore</button></div>
-      </div>
-      <button class="btn giallo" id="r-start" style="margin-top:16px"><svg class="ic" aria-hidden="true"><use href="#a-panda"/></svg>Accendi</button>
+    <div id="r-0">
+      <h2>Il dispositivo che resta con la bambina</h2>
+      <p>Accendo solo il microfono. Niente video: consuma poco e il collegamento regge molto meglio.</p>
+      <button class="btn giallo" id="r-go">Accendi il microfono</button>
       <div class="err" id="r-err"></div>
-      <div class="note">In solo audio il dispositivo consuma molto meno e non illumina la stanza.</div>
     </div>
 
-    <div id="r-step1" class="hide">
+    <div id="r-1" class="hide">
       <div class="codebox">
         <div class="lab">codice</div>
         <div class="num" id="r-code">····</div>
-        <div class="sub" id="r-codesub">Digitalo sull'altro dispositivo</div>
+        <div class="sub" id="r-sub">Digitalo sull'altro dispositivo</div>
       </div>
-      <div class="card-h" style="margin:20px 0 6px"><span>microfono</span></div>
+      <div style="margin:22px 0 8px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#6B65A5">microfono</div>
       <div class="vu"><i id="r-vu"></i></div>
-      <div class="videobox" id="r-prevbox"><video id="r-preview" autoplay playsinline muted></video></div>
-      <div class="note">Tieni questa pagina aperta finché l'altro dispositivo non aggancia.</div>
+      <button class="btn sky hide" id="r-dark" style="margin-top:20px">Spegni lo schermo</button>
+      <div class="note">Tieni la pagina aperta e in primo piano, il dispositivo sotto carica. Se il collegamento cade si riaggancia da solo: il codice resta valido.</div>
     </div>
-
-    <div id="r-step2" class="hide">
-      <div class="pane" style="margin-top:0;background:var(--menta)">
-        <div class="card-h" style="margin:0"><span style="color:var(--ink)">collegato · codice <b id="r-code2"></b></span></div>
-      </div>
-      <div class="pane" id="r-calbox">
-        <div class="card-h"><span>taratura della stanza</span><span class="val" id="r-calstate">da fare</span></div>
-        <p id="r-caltext">Accendi ora il rumore bianco o il ventilatore, come li tenete di notte, ed esci dalla stanza. Ascolto 15 secondi e metto la soglia appena sopra il fondo.</p>
-        <button class="btn giallo" id="r-calgo">Ascolta la stanza · 15s</button>
-        <div class="calbar hide" id="r-calbarwrap"><i id="r-calbar"></i></div>
-      </div>
-      <div class="card-h" style="margin:16px 0 6px"><span>microfono</span></div>
-      <div class="vu"><i id="r-vu2"></i></div>
-      <div class="videobox" id="r-prevbox2"><video id="r-preview2" autoplay playsinline muted></video></div>
-      <button class="btn sky" id="r-dim" style="margin-top:16px">Spegni lo schermo</button>
-      <div class="note">Lascia la pagina aperta e in primo piano, con il dispositivo sotto carica. Se cade il collegamento si riaggancia da solo, senza rifare il codice.</div>
-    </div>
-    <audio id="r-talkback" autoplay></audio>
+    <audio id="r-in" autoplay playsinline></audio>
   </div>
 </section>
 
-<!-- ══ GENITORE ══ -->
-<section id="s-parent" class="screen">
-  <div class="drift" aria-hidden="true"><svg class="d3"><use href="#a-cloudonly"/></svg></div>
-  <div class="stars hide" id="p-stars"></div>
+<!-- ══ RICEVENTE ══ -->
+<section id="s-p" class="screen">
   <div class="wrap">
-    <div class="statusbar"><span class="chip"><span class="dot" id="p-dot"></span><span id="p-status">non collegato</span></span>
+    <div class="statusbar"><span class="chip"><span class="dot" id="p-dot"></span><span id="p-st">non collegato</span></span>
       <span class="spacer"></span><button class="mini" id="p-reset">ricomincia</button></div>
 
-    <div id="p-step0">
-      <span class="tag lilla">con voi</span>
-      <h2 style="margin-top:12px">Digita il codice della stanza</h2>
+    <div id="p-0">
+      <h2>Digita il codice della stanza</h2>
       <input class="code" id="p-code" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="0000" autocomplete="off">
-      <label class="check" style="margin-top:16px"><input type="checkbox" id="p-mic"> Voglio poterle parlare</label>
-      <button class="btn" id="p-connect" style="margin-top:14px">Collega</button>
+      <button class="btn" id="p-go" style="margin-top:16px">Collega</button>
       <div class="err" id="p-err"></div>
-      <div class="note">Se la stanza non è ancora pronta, resta in attesa e aggancia appena compare.</div>
+      <div class="note">Se la stanza non è ancora pronta resta in attesa e aggancia da sola appena compare.</div>
     </div>
 
-    <div id="p-monitor" class="hide" style="flex:1;display:flex;flex-direction:column">
-      <div class="hero">
-        <svg id="p-hero" viewBox="0 0 120 108" aria-label="animale che dorme sulla nuvola">
-          <g class="zzz" fill="#FFD36E" font-family="Zen Maru Gothic,sans-serif" font-weight="700">
-            <text x="74" y="26" font-size="13">z</text><text x="86" y="16" font-size="10">z</text><text x="95" y="9" font-size="7">z</text>
-          </g>
-          <g class="cloud-body"><use href="#g-cloud" transform="translate(0,14)"/></g>
-          <g transform="translate(0,14)">
-            <ellipse cx="66" cy="50" rx="23" ry="12" fill="#FFD36E"/>
-            <path d="M88 50c9 0 11-6 9-12" stroke="#FFD36E" stroke-width="6" fill="none" stroke-linecap="round"/>
-            <circle cx="46" cy="44" r="13" fill="#FFD36E"/><path d="M37 35l-1-9 9 4zM53 32l4-8 3 8z" fill="#FFD36E"/>
-            <g class="eye-shut"><path d="M40 45q3 3.5 6 0M52 45q3 3.5 6 0" stroke="#1B1749" stroke-width="2.4" fill="none" stroke-linecap="round"/></g>
-            <g class="eye-open"><circle cx="43" cy="44" r="3.2" fill="#1B1749"/><circle cx="55" cy="44" r="3.2" fill="#1B1749"/></g>
-            <path d="M47 49h4" stroke="#1B1749" stroke-width="2.4" stroke-linecap="round"/>
-          </g>
-        </svg>
-      </div>
-      <div class="gauge"><b id="p-level">0</b><span class="lab" id="p-mood">quiete</span></div>
+    <div id="p-1" class="hide" style="flex:1;display:flex;flex-direction:column">
+      <div class="hero"><svg id="cat" viewBox="0 0 120 108"><use href="#sym-cat"/></svg></div>
+      <div class="gauge"><b id="p-lvl">0</b><span class="lab" id="p-mood">quiete</span></div>
 
-      <div class="card-n">
-        <div class="card-h"><span>ascolto</span><span class="val" id="p-filtstate">filtro attivo</span></div>
-        <div class="seg" id="p-filter"><button data-f="on" class="sel">Filtro anti-rumore</button><button data-f="off">Audio grezzo</button></div>
-        <div class="card-h" style="margin:14px 0 0"><span>volume ascolto</span></div>
-        <input type="range" id="p-lvol" min="0" max="100" value="80">
-        <p style="margin:12px 0 0;font-size:12px">A schermo spento passa da solo all'ascolto diretto: senti la stanza come in telefonata, ma filtro, livello e allarme restano sospesi finché non riaccendi.</p>
+      <div class="card">
+        <div class="card-h"><span>soglia di avviso</span><span class="val" id="p-thrv">40</span></div>
+        <input type="range" id="p-thr" min="5" max="95" value="40">
+        <div class="card-h" style="margin:16px 0 6px"><span>volume ascolto</span></div>
+        <input type="range" id="p-vol" min="0" max="100" value="85">
       </div>
 
-      <div class="card-n" id="p-cal">
-        <div class="card-h"><span>taratura della stanza</span><span class="val" id="p-calstate">da fare</span></div>
-        <p id="p-caltext">Si avvia dal dispositivo nella stanza — è lì che accendete ventilatore e rumore bianco. Da qui puoi lanciarla a distanza.</p>
-        <div class="card-h"><span>rilevamento</span></div>
-        <div class="seg" id="p-detect" style="margin-bottom:12px">
-          <button data-d="band" class="sel">Banda del pianto</button><button data-d="tot">Volume totale</button></div>
-        <div class="card-h"><span>margine sopra il fondo</span></div>
-        <div class="seg" id="p-margin" style="margin-bottom:12px">
-          <button data-m="6">Sensibile</button><button data-m="12" class="sel">Normale</button><button data-m="20">Tollerante</button></div>
-        <button class="btn giallo" id="p-calgo">Ascolta la stanza · 15s</button>
-        <div class="calbar hide" id="p-calbarwrap"><i id="p-calbar"></i></div>
+      <div class="card">
+        <div class="card-h"><span>allarme</span><span class="val" id="p-alv">bip</span></div>
+        <div class="seg" id="p-alarm">
+          <button data-k="off">Nessuno</button><button data-k="bip" class="sel">Bip</button><button data-k="sirena">Sirena</button>
+        </div>
       </div>
 
-      <div class="card-n">
-        <div class="card-h"><span>ultimi 10 minuti</span><span id="p-last">nessun risveglio</span></div>
-        <canvas id="trace"></canvas>
-      </div>
-
-      <div class="card-n">
-        <div class="card-h"><span>soglia di avviso</span><span class="val" id="p-thrval">35</span></div>
-        <input type="range" id="p-thr" min="5" max="95" value="35">
-      </div>
-
-      <div class="card-n">
-        <div class="card-h"><span>allarme quando piange</span><span class="val" id="p-alarmstate">spento</span></div>
-        <div class="seg" id="p-alarmkind">
-          <button data-k="off" class="sel">Nessuno</button><button data-k="bip">Bip</button>
-          <button data-k="sirena">Sirena</button><button data-k="campana">Campana</button></div>
-        <div class="card-h" style="margin:14px 0 0"><span>volume allarme</span></div>
-        <input type="range" id="p-vol" min="10" max="100" value="70">
-        <label class="check" style="margin-top:14px;background:var(--night2);color:#fff;border-color:#fff;box-shadow:2px 2px 0 rgba(0,0,0,.35)">
-          <input type="checkbox" id="p-insist" checked> Insisti finché non lo tacito</label>
-      </div>
-
-      <div class="videobox hide" id="p-videobox"><video id="p-video" autoplay playsinline muted></video></div>
-
-      <div class="tools">
-        <button class="tool on" id="t-alert">avvisi<small id="t-alert-s">attivi</small></button>
-        <button class="tool" id="t-night">notte<small>profonda</small></button>
-        <button class="tool on" id="t-sound">ascolto<small id="t-sound-s">acceso</small></button>
-        <button class="tool talk hide" id="t-talk">Tieni premuto per parlare</button>
-      </div>
+      <button class="ptt hide" id="ptt">Tieni premuto per parlare</button>
+      <button class="btn sky" id="p-dark" style="margin-top:14px">Spegni lo schermo</button>
       <div class="log" id="p-log"></div>
     </div>
   </div>
-  <audio id="p-keep" autoplay playsinline muted></audio>
+  <audio id="p-in" autoplay playsinline></audio>
 </section>
 
-<div id="lost" class="banner"><span class="spin"></span><div style="flex:1"><b>Collegamento perso</b><small id="lost-sub">riaggancio in corso…</small></div></div>
-<div id="p-banner" class="banner"><div style="flex:1"><b>Ada si è svegliata</b><small id="p-bannert"></small></div><button class="mini" id="p-hush">Tacita</button></div>
-<div id="safelight"><svg><use href="#a-bear"/></svg><div class="safenote">tocca per riaccendere lo schermo</div></div>
+<div id="lost" class="banner"><span class="spin"></span><div style="flex:1"><b>Collegamento perso</b><small id="lost-s">riaggancio in corso…</small></div></div>
+<div id="wake" class="banner"><div style="flex:1"><b>Ada si è svegliata</b><small id="wake-s"></small></div><button class="mini" id="hush">Tacita</button></div>
+<div id="dark"><div style="text-align:center"><svg><use href="#sym-cat"/></svg><div class="d-lvl" id="d-lvl">tocca per riaccendere</div></div></div>
 
 <script>
 (function(){
 "use strict";
-const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
-const PREFIX="labellaaddormentada-";
-function show(id){$$(".screen").forEach(s=>s.classList.remove("on"));$(id).classList.add("on");}
-function err(el,msg){el.textContent=msg;el.classList.toggle("on",!!msg);}
-function segPick(c,b){c.querySelectorAll("button").forEach(x=>x.classList.remove("sel"));b.classList.add("sel");}
-function setStatus(dot,txt,st,label){
-  const m={idle:["","in attesa"],waiting:["","in attesa del codice"],connecting:["","collegamento…"],
-           live:["live","collegato"],lost:["warn","riaggancio…"]};
-  const v=m[st]||m.idle;dot.className="dot "+v[0];txt.textContent=label||v[1];
-}
-function showLost(on,sub){
-  $("#lost").classList.toggle("on",on);
-  if(sub)$("#lost-sub").textContent=sub;
-}
+const $=s=>document.querySelector(s);
+const PREFIX="belladdormentada-";
+/* Relay pubblici: se il collegamento diretto non passa (reti mobili, router
+   restrittivi) l'audio viene instradato qui invece di cadere. */
+const ICE=[
+  {urls:["stun:stun.l.google.com:19302","stun:stun1.l.google.com:19302"]},
+  {urls:"turn:openrelay.metered.ca:80",username:"openrelayproject",credential:"openrelayproject"},
+  {urls:"turn:openrelay.metered.ca:443",username:"openrelayproject",credential:"openrelayproject"},
+  {urls:"turn:openrelay.metered.ca:443?transport=tcp",username:"openrelayproject",credential:"openrelayproject"}
+];
+const PEEROPT={debug:0,config:{iceServers:ICE,iceCandidatePoolSize:4}};
+function show(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("on"));$(id).classList.add("on");}
+function errBox(el,m){el.textContent=m;el.classList.toggle("on",!!m);}
+function stat(dot,txt,cls,label){dot.className="dot "+cls;txt.textContent=label;}
 let wl=null;
-async function keepAwake(){try{if("wakeLock" in navigator)wl=await navigator.wakeLock.request("screen");}catch(e){}}
-document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&!wl)keepAwake();});
-function rmsLevel(an,buf){
-  an.getByteTimeDomainData(buf);
-  let s=0;for(let i=0;i<buf.length;i++){const v=(buf[i]-128)/128;s+=v*v;}
-  const db=20*Math.log10(Math.sqrt(s/buf.length)||1e-8);
-  return Math.max(0,Math.min(100,Math.round((db+62)/62*100)));
-}
-function bandLevel(an,fbuf,sr){
-  an.getByteFrequencyData(fbuf);
-  const binHz=sr/an.fftSize;
-  const i0=Math.max(1,Math.floor(300/binHz)),i1=Math.min(fbuf.length-1,Math.ceil(3000/binHz));
-  let sum=0,pk=0;
-  for(let i=i0;i<=i1;i++){sum+=fbuf[i];if(fbuf[i]>pk)pk=fbuf[i];}
-  return Math.max(0,Math.min(100,Math.round(((sum/(i1-i0+1))*.65+pk*.35)/255*100)));
+async function wake(){try{if("wakeLock" in navigator)wl=await navigator.wakeLock.request("screen");}catch(e){}}
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"){wl=null;wake();}});
+function level(an,buf){
+  an.getByteFrequencyData(buf);
+  const bin=an.context.sampleRate/an.fftSize;
+  const a=Math.max(1,Math.floor(300/bin)),b=Math.min(buf.length-1,Math.ceil(3000/bin));
+  let s=0,pk=0;for(let i=a;i<=b;i++){s+=buf[i];if(buf[i]>pk)pk=buf[i];}
+  return Math.max(0,Math.min(100,Math.round(((s/(b-a+1))*.6+pk*.4)/255*100)));
 }
 $("#r-reset").onclick=()=>location.reload();
 $("#p-reset").onclick=()=>location.reload();
-$("#go-room").onclick=()=>show("#s-room");
-$("#go-parent").onclick=()=>{show("#s-parent");$("#p-code").focus();};
+$("#go-r").onclick=()=>show("#s-r");
+$("#go-p").onclick=()=>{show("#s-p");setTimeout(()=>$("#p-code").focus(),100);};
 
-/* ══════ STANZA ══════ */
-const R={peer:null,conn:null,call:null,stream:null,code:null,mode:"av",facing:"user",tries:0,waiting:false};
-$("#r-mode").onclick=e=>{const b=e.target.closest("button");if(!b)return;
-  segPick($("#r-mode"),b);R.mode=b.dataset.m;$("#r-camrow").classList.toggle("hide",R.mode==="a");};
-$("#r-facing").onclick=e=>{const b=e.target.closest("button");if(!b)return;segPick($("#r-facing"),b);R.facing=b.dataset.f;};
-
-$("#r-start").onclick=async function(){
-  err($("#r-err"),"");
-  if(!window.isSecureContext){err($("#r-err"),"Il browser blocca microfono e videocamera su una connessione non sicura. Apri la pagina da un indirizzo https.");return;}
-  if(typeof Peer==="undefined"){err($("#r-err"),"Manca la libreria di collegamento: sei offline oppure il CDN è bloccato. Riprova con la linea attiva.");return;}
+/* ════════ STANZA ════════ */
+const R={peer:null,conn:null,call:null,stream:null,code:null,tries:0,seen:0,hb:null};
+$("#r-go").onclick=async function(){
+  errBox($("#r-err"),"");
+  if(!window.isSecureContext){errBox($("#r-err"),"Serve un indirizzo https per accedere al microfono.");return;}
+  if(typeof Peer==="undefined"){errBox($("#r-err"),"Manca la libreria di collegamento: controlla la linea e ricarica.");return;}
   this.disabled=true;this.textContent="accensione…";
-  const wantVideo=R.mode==="av";
   try{
-    R.stream=await navigator.mediaDevices.getUserMedia({
-      video:wantVideo?{facingMode:R.facing,width:{ideal:1280},height:{ideal:720},frameRate:{ideal:15}}:false,
-      audio:{echoCancellation:true,noiseSuppression:false,autoGainControl:false}});
+    R.stream=await navigator.mediaDevices.getUserMedia({audio:{
+      echoCancellation:true,noiseSuppression:false,autoGainControl:false},video:false});
   }catch(e){
-    err($("#r-err"),"Accesso negato o dispositivo occupato ("+e.name+"). Controlla i permessi e chiudi le altre app che usano microfono o videocamera.");
-    this.disabled=false;this.textContent="Accendi";return;
+    errBox($("#r-err"),"Microfono non disponibile ("+e.name+"). Controlla i permessi del browser.");
+    this.disabled=false;this.textContent="Accendi il microfono";return;
   }
-  if(!wantVideo){$("#r-prevbox").classList.add("hide");$("#r-prevbox2").classList.add("hide");}
-  else{$("#r-preview").srcObject=R.stream;$("#r-preview2").srcObject=R.stream;}
-  $("#r-step0").classList.add("hide");$("#r-step1").classList.remove("hide");
-  keepAwake();localVU();openRoomPeer();
+  $("#r-0").classList.add("hide");$("#r-1").classList.remove("hide");
+  wake();roomVU();openRoom();
 };
-function openRoomPeer(){
-  R.code=String(Math.floor(1000+Math.random()*9000));
-  setStatus($("#r-dot"),$("#r-status"),"connecting","registrazione…");
-  R.peer=new Peer(PREFIX+R.code,{debug:0});
+function openRoom(){
+  if(!R.code)R.code=String(Math.floor(1000+Math.random()*9000));
+  stat($("#r-dot"),$("#r-st"),"","registrazione…");
+  R.peer=new Peer(PREFIX+R.code,PEEROPT);
   R.peer.on("open",()=>{
-    $("#r-code").textContent=R.code;$("#r-code2").textContent=R.code;
-    setStatus($("#r-dot"),$("#r-status"),"waiting","in attesa · "+R.code);
+    $("#r-code").textContent=R.code;
+    stat($("#r-dot"),$("#r-st"),"","in attesa · "+R.code);
+    $("#r-sub").textContent="Digitalo sull'altro dispositivo";
   });
-  R.peer.on("error",e=>{
-    if(e.type==="unavailable-id"&&R.tries<5){R.tries++;try{R.peer.destroy();}catch(_){}openRoomPeer();return;}
-    if(e.type==="peer-unavailable")return;
-    $("#r-codesub").textContent="Problema di rete ("+e.type+"). Controlla la linea; riprovo da solo.";
+  R.peer.on("connection",c=>{
+    if(R.conn){try{R.conn.close();}catch(e){}}
+    R.conn=c;
+    c.on("open",()=>{
+      stat($("#r-dot"),$("#r-st"),"live","collegato · "+R.code);
+      $("#r-sub").textContent="Collegato. Puoi spegnere lo schermo.";
+      $("#r-dark").classList.remove("hide");
+      R.seen=Date.now();ring(c.peer);
+    });
+    c.on("data",m=>{
+      R.seen=Date.now();
+      if(m&&m.c==="ping"&&c.open)c.send({c:"pong"});
+    });
+    c.on("close",()=>{
+      stat($("#r-dot"),$("#r-st"),"warn","in attesa di riaggancio");
+      $("#r-sub").textContent="Collegamento caduto. Riaggancia da solo · "+R.code;
+    });
+    c.on("error",()=>{});
   });
   R.peer.on("disconnected",()=>{try{R.peer.reconnect();}catch(e){}});
-  R.peer.on("connection",conn=>{
-    R.conn=conn;
-    conn.on("open",()=>{
-      showLost(false);
-      setStatus($("#r-dot"),$("#r-status"),"live","collegato · "+R.code);
-      $("#r-step1").classList.add("hide");$("#r-step2").classList.remove("hide");
-      placeCall(conn.peer);
-    });
-    conn.on("data",handleRoomData);
-    conn.on("close",()=>{
-      setStatus($("#r-dot"),$("#r-status"),"lost");
-      showLost(true,"l'altro dispositivo si è scollegato · codice "+R.code);
-    });
+  R.peer.on("error",e=>{
+    if(e.type==="unavailable-id"&&R.tries<6){R.tries++;R.code=String(Math.floor(1000+Math.random()*9000));
+      try{R.peer.destroy();}catch(_){}setTimeout(openRoom,400);return;}
+    if(e.type==="peer-unavailable")return;
+    if(e.type==="network"||e.type==="server-error"||e.type==="socket-error"){
+      $("#r-sub").textContent="Rete instabile, riprovo…";
+      try{R.peer.destroy();}catch(_){}setTimeout(openRoom,2500);return;
+    }
+    $("#r-sub").textContent="Problema ("+e.type+"), riprovo da solo.";
   });
+  clearInterval(R.hb);
+  R.hb=setInterval(()=>{
+    if(R.conn&&R.conn.open&&Date.now()-R.seen>12000){
+      try{R.conn.close();}catch(e){}
+      stat($("#r-dot"),$("#r-st"),"warn","in attesa di riaggancio");
+    }
+  },4000);
 }
-function placeCall(peerId){
+function ring(id){
   try{if(R.call)R.call.close();}catch(e){}
-  R.call=R.peer.call(peerId,R.stream);
-  R.call.on("stream",s=>{$("#r-talkback").srcObject=s;});
-  R.call.on("close",()=>{if(R.conn&&R.conn.open)setTimeout(()=>placeCall(peerId),1500);});
+  R.call=R.peer.call(id,R.stream);
+  R.call.on("stream",s=>{$("#r-in").srcObject=s;});
+  R.call.on("close",()=>{if(R.conn&&R.conn.open)setTimeout(()=>ring(id),1500);});
+  R.call.on("error",()=>{});
 }
-function handleRoomData(m){
-  if(!m||!m.c)return;
-  if(m.c==="caldone"){
-    $("#r-calstate").textContent="fondo "+m.base;
-    $("#r-caltext").textContent="Fondo "+m.base+", soglia "+m.thr+", misurati sulla "+m.mode+". Rifalla se cambiate ventilatore, rumore bianco o posizione del dispositivo.";
-    $("#r-calgo").textContent="Rifai la taratura";$("#r-calgo").disabled=false;
-    $("#r-calbarwrap").classList.add("hide");$("#r-calbar").style.width="0%";R.waiting=false;
-  }else if(m.c==="calfail"){
-    $("#r-calstate").textContent="non riuscita";
-    $("#r-caltext").textContent=m.why||"L'altro dispositivo non riceve audio. Controlla che la barra del microfono qui sotto si muova.";
-    $("#r-calgo").textContent="Riprova";$("#r-calgo").disabled=false;
-    $("#r-calbarwrap").classList.add("hide");R.waiting=false;
-  }
-}
-function localVU(){
+function roomVU(){
   try{
-    const ctx=new (window.AudioContext||window.webkitAudioContext)();
-    const an=ctx.createAnalyser();an.fftSize=1024;
-    ctx.createMediaStreamSource(R.stream).connect(an);
-    const buf=new Uint8Array(an.fftSize);
-    setInterval(()=>{const l=rmsLevel(an,buf);$("#r-vu").style.width=l+"%";$("#r-vu2").style.width=l+"%";},120);
+    const c=new (window.AudioContext||window.webkitAudioContext)();
+    const a=c.createAnalyser();a.fftSize=1024;
+    c.createMediaStreamSource(R.stream).connect(a);
+    const b=new Uint8Array(a.frequencyBinCount);
+    setInterval(()=>{$("#r-vu").style.width=level(a,b)+"%";},140);
   }catch(e){}
 }
-$("#r-calgo").onclick=function(){
-  if(R.waiting)return;
-  if(!R.conn||!R.conn.open){$("#r-calstate").textContent="non collegato";
-    $("#r-caltext").textContent="Prima serve il collegamento con l'altro dispositivo.";return;}
-  R.waiting=true;this.disabled=true;
-  R.conn.send({c:"cal"});
-  $("#r-calstate").textContent="in ascolto";
-  $("#r-calbarwrap").classList.remove("hide");
-  let n=0;const total=150;
-  const iv=setInterval(()=>{
-    n++;$("#r-calbar").style.width=(n/total*100)+"%";
-    $("#r-calgo").textContent="ascolto… "+Math.ceil((total-n)/10)+"s";
-    if(n>=total)clearInterval(iv);
-  },100);
-};
-$("#r-dim").onclick=()=>$("#safelight").classList.add("on");
-$("#safelight").onclick=()=>$("#safelight").classList.remove("on");
+$("#r-dark").onclick=()=>$("#dark").classList.add("on");
+$("#dark").onclick=()=>$("#dark").classList.remove("on");
 
-/* ══════ GENITORE ══════ */
-const P={peer:null,conn:null,call:null,roomId:null,micStream:null,micTrack:null,live:false,
-  ctx:null,master:null,listen:null,hp:null,pk:null,lp:null,analyser:null,buf:null,fbuf:null,
-  level:0,detect:"band",filter:true,lvol:.8,hist:new Array(200).fill(0),over:0,lastAlert:0,
-  alerts:true,sound:true,thr:35,base:null,margin:12,calibrating:false,bg:false,
-  alarmKind:"off",vol:.7,insist:true,alarmTimer:null};
+/* ════════ RICEVENTE ════════ */
+const P={peer:null,conn:null,call:null,room:null,mic:null,micTrack:null,on:false,
+  ctx:null,an:null,buf:null,gain:null,lvl:0,thr:40,vol:.85,over:0,last:0,
+  alarm:"bip",timer:null,seen:0,alive:null};
 
 $("#p-code").oninput=function(){this.value=this.value.replace(/\D/g,"").slice(0,4);};
-$("#p-connect").onclick=async function(){
-  err($("#p-err"),"");
+$("#p-code").onkeydown=e=>{if(e.key==="Enter")$("#p-go").click();};
+$("#p-go").onclick=async function(){
+  errBox($("#p-err"),"");
   const code=$("#p-code").value.trim();
-  if(code.length!==4){err($("#p-err"),"Servono le quattro cifre mostrate nella stanza.");return;}
-  if(typeof Peer==="undefined"){err($("#p-err"),"Manca la libreria di collegamento: sei offline oppure il CDN è bloccato.");return;}
+  if(code.length!==4){errBox($("#p-err"),"Servono le quattro cifre mostrate nella stanza.");return;}
+  if(typeof Peer==="undefined"){errBox($("#p-err"),"Manca la libreria di collegamento: controlla la linea e ricarica.");return;}
   this.disabled=true;this.textContent="collegamento…";
-  P.roomId=PREFIX+code;
-  setStatus($("#p-dot"),$("#p-status"),"connecting","cerco la stanza…");
-  if($("#p-mic").checked){
-    try{
-      P.micStream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});
-      P.micTrack=P.micStream.getAudioTracks()[0];P.micTrack.enabled=false;
-      $("#t-talk").classList.remove("hide");
-    }catch(e){}
-  }
-  P.peer=new Peer({debug:0});
-  P.peer.on("open",()=>{tryConnect();setInterval(watchdog,3000);});
+  P.room=PREFIX+code;
+  stat($("#p-dot"),$("#p-st"),"","cerco la stanza…");
+  try{
+    P.mic=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});
+    P.micTrack=P.mic.getAudioTracks()[0];P.micTrack.enabled=false;
+    $("#ptt").classList.remove("hide");
+  }catch(e){}
+  P.peer=new Peer(PEEROPT);
+  P.peer.on("open",()=>{dial();P.alive=setInterval(guard,3000);});
   P.peer.on("disconnected",()=>{try{P.peer.reconnect();}catch(e){}});
   P.peer.on("error",e=>{
-    if(e.type==="peer-unavailable"){setStatus($("#p-dot"),$("#p-status"),"connecting","stanza non ancora pronta");return;}
-    err($("#p-err"),"Problema di rete ("+e.type+"). Riprovo da solo.");
+    if(e.type==="peer-unavailable"){stat($("#p-dot"),$("#p-st"),"","stanza non ancora pronta");return;}
+    if(!P.on)errBox($("#p-err"),"Rete instabile ("+e.type+"), riprovo da solo.");
   });
-  P.peer.on("call",call=>{
-    P.call=call;
-    call.answer(P.micStream||undefined);
-    call.on("stream",st=>{
-      const v=$("#p-video");
-      if(v.srcObject!==st){v.srcObject=st;$("#p-keep").srcObject=st;startAudio(st);}
-      if(st.getVideoTracks().length)$("#p-videobox").classList.remove("hide");
+  P.peer.on("call",c=>{
+    P.call=c;c.answer(P.mic||undefined);
+    c.on("stream",s=>{
+      const a=$("#p-in");
+      if(a.srcObject!==s){a.srcObject=s;a.volume=P.vol;a.play().catch(()=>{});meter(s);}
       goLive();
     });
-    call.on("close",()=>markLost());
+    c.on("close",()=>drop());
+    c.on("error",()=>drop());
   });
 };
-function tryConnect(){
+function dial(){
   if(P.conn){try{P.conn.close();}catch(e){}}
-  P.conn=P.peer.connect(P.roomId,{reliable:true});
-  P.conn.on("open",()=>{setStatus($("#p-dot"),$("#p-status"),"connecting","aggancio…");});
-  P.conn.on("data",m=>{if(m&&m.c==="cal")startCalibration(true);});
-  P.conn.on("close",()=>markLost());
+  P.conn=P.peer.connect(P.room,{reliable:true});
+  P.conn.on("open",()=>{P.seen=Date.now();stat($("#p-dot"),$("#p-st"),"","aggancio…");});
+  P.conn.on("data",m=>{if(m&&m.c==="pong")P.seen=Date.now();});
+  P.conn.on("close",()=>drop());
   P.conn.on("error",()=>{});
 }
-function watchdog(){
-  if(!P.conn||!P.conn.open){markLost();tryConnect();}
+/* Ogni 3 secondi: un ping. Se per 10 secondi non torna nulla, il collegamento
+   è morto anche se il browser non se n'è accorto — si ricompone da capo. */
+function guard(){
+  if(P.conn&&P.conn.open){
+    try{P.conn.send({c:"ping"});}catch(e){}
+    if(Date.now()-P.seen>10000){drop();dial();}
+  }else{drop();dial();}
 }
 function goLive(){
-  P.live=true;showLost(false);
-  setStatus($("#p-dot"),$("#p-status"),"live");
-  $("#p-step0").classList.add("hide");$("#p-monitor").classList.remove("hide");
-  $("#s-parent").classList.add("night-sky");$("#p-stars").classList.remove("hide");
-  $("#p-hero").classList.remove("offline");
-  sizeCanvas();keepAwake();
+  if(P.on)return;
+  P.on=true;$("#lost").classList.remove("on");
+  stat($("#p-dot"),$("#p-st"),"live","collegato");
+  $("#p-0").classList.add("hide");$("#p-1").classList.remove("hide");
+  $("#s-p").classList.add("live-bg");$("#cat").classList.remove("off");
+  log("collegato");wake();
 }
-function markLost(){
-  if(!P.live)return;
-  P.live=false;
-  setStatus($("#p-dot"),$("#p-status"),"lost");
-  $("#p-hero").classList.add("offline");
-  showLost(true,"riaggancio in corso, non toccare nulla");
-  logEvent("collegamento perso");
+function drop(){
+  if(!P.on)return;
+  P.on=false;
+  stat($("#p-dot"),$("#p-st"),"warn","riaggancio…");
+  $("#cat").classList.add("off");
+  $("#lost").classList.add("on");
+  log("collegamento perso");
 }
-/* catena audio */
-function startAudio(stream){
-  if(P.ctx||!stream.getAudioTracks().length)return;
+function meter(s){
+  if(P.ctx)return;
   try{
     P.ctx=new (window.AudioContext||window.webkitAudioContext)();
     if(P.ctx.state==="suspended")P.ctx.resume();
-    const src=P.ctx.createMediaStreamSource(stream);
-    P.analyser=P.ctx.createAnalyser();
-    P.analyser.fftSize=2048;P.analyser.smoothingTimeConstant=.6;
-    P.analyser.minDecibels=-90;P.analyser.maxDecibels=-25;
-    P.buf=new Uint8Array(P.analyser.fftSize);
-    P.fbuf=new Uint8Array(P.analyser.frequencyBinCount);
-    src.connect(P.analyser);
-    P.hp=P.ctx.createBiquadFilter();P.hp.type="highpass";
-    P.pk=P.ctx.createBiquadFilter();P.pk.type="peaking";P.pk.frequency.value=1100;P.pk.Q.value=.9;
-    P.lp=P.ctx.createBiquadFilter();P.lp.type="lowpass";
-    P.listen=P.ctx.createGain();P.listen.gain.value=P.lvol;
-    src.connect(P.hp);P.hp.connect(P.pk);P.pk.connect(P.lp);P.lp.connect(P.listen);
-    P.listen.connect(P.ctx.destination);applyFilter();
-    P.master=P.ctx.createGain();P.master.gain.value=P.vol;P.master.connect(P.ctx.destination);
-    requestAnimationFrame(tick);setInterval(pushHistory,3000);
+    P.an=P.ctx.createAnalyser();P.an.fftSize=2048;P.an.smoothingTimeConstant=.6;
+    P.an.minDecibels=-90;P.an.maxDecibels=-25;
+    P.buf=new Uint8Array(P.an.frequencyBinCount);
+    P.ctx.createMediaStreamSource(s).connect(P.an);
+    P.gain=P.ctx.createGain();P.gain.gain.value=P.vol;P.gain.connect(P.ctx.destination);
+    tick();
   }catch(e){}
 }
-function applyFilter(){
-  if(!P.hp)return;
-  if(P.filter){P.hp.frequency.value=180;P.pk.gain.value=6;P.lp.frequency.value=5000;}
-  else{P.hp.frequency.value=20;P.pk.gain.value=0;P.lp.frequency.value=20000;}
-  $("#p-filtstate").textContent=P.filter?"filtro attivo":"audio grezzo";
-}
-/* A schermo spento il browser sospende il motore audio: filtro, misura e allarme
-   si fermano. Passiamo quindi alla riproduzione diretta dell'elemento audio,
-   che continua come una telefonata, e torniamo alla catena filtrata al risveglio. */
-function bgAudio(on){
-  if(!P.ctx)return;
-  const a=$("#p-keep");
-  if(on){
-    if(P.listen)P.listen.gain.value=0;
-    a.muted=false;a.volume=P.sound?P.lvol:0;
-    a.play().catch(()=>{});
-    P.bg=true;
-  }else{
-    a.muted=true;
-    if(P.ctx.state==="suspended")P.ctx.resume();
-    if(P.listen)P.listen.gain.value=P.sound?P.lvol:0;
-    if(P.bg){P.bg=false;P.over=0;logEvent("schermo riacceso · avvisi riattivati");}
-  }
-}
-document.addEventListener("visibilitychange",()=>{
-  if($("#p-monitor").classList.contains("hide"))return;
-  bgAudio(document.visibilityState!=="visible");
-});
-const hero=$("#p-hero");
+const cat=$("#cat");
 function tick(){
-  if(P.analyser&&P.live){
-    const lv=P.detect==="band"?bandLevel(P.analyser,P.fbuf,P.ctx.sampleRate):rmsLevel(P.analyser,P.buf);
-    P.level=P.level*.7+lv*.3;
-    render();if(!P.calibrating)checkAlert();
+  if(P.an&&P.on&&document.visibilityState==="visible"){
+    P.lvl=P.lvl*.7+level(P.an,P.buf)*.3;
+    const l=Math.round(P.lvl),hot=l>=P.thr;
+    $("#p-lvl").textContent=l;$("#d-lvl").textContent=l;
+    cat.style.setProperty("--bob",(l/100*20).toFixed(1));
+    cat.style.setProperty("--zop",hot?0:Math.max(.15,1-l/P.thr));
+    cat.style.setProperty("--shut",hot?0:1);
+    cat.style.setProperty("--open",hot?1:0);
+    cat.classList.toggle("up",hot);
+    const m=$("#p-mood");
+    m.textContent=hot?"sveglia!":(l>P.thr*.8?"si gira":"quiete");
+    m.classList.toggle("hot",hot);
+    P.over=hot?P.over+1:Math.max(0,P.over-2);
+    if(P.over>70&&Date.now()-P.last>20000){P.last=Date.now();P.over=0;fire();}
   }
   requestAnimationFrame(tick);
 }
-function render(){
-  const l=Math.round(P.level),loud=l>=P.thr;
-  $("#p-level").textContent=l;
-  hero.style.setProperty("--bob",(l/100*22).toFixed(1));
-  hero.style.setProperty("--zop",loud?0:Math.max(.15,1-l/P.thr));
-  hero.style.setProperty("--shut",loud?0:1);
-  hero.style.setProperty("--open",loud?1:0);
-  hero.classList.toggle("sveglia",loud&&!P.calibrating);
-  const mood=$("#p-mood");
-  mood.textContent=P.calibrating?"ascolto…":(loud?"sveglia!":(l>P.thr*.8?"si gira":"quiete"));
-  mood.classList.toggle("up",loud&&!P.calibrating);
-}
-/* taratura */
-function send(o){if(P.conn&&P.conn.open)P.conn.send(o);}
-$("#p-margin").onclick=e=>{const b=e.target.closest("button");if(!b)return;
-  segPick($("#p-margin"),b);P.margin=+b.dataset.m;if(P.base!==null)applyCal(true);};
-$("#p-detect").onclick=e=>{const b=e.target.closest("button");if(!b)return;
-  segPick($("#p-detect"),b);P.detect=b.dataset.d;P.base=null;P.hist.fill(0);
-  $("#p-calstate").textContent="da rifare";
-  $("#p-caltext").textContent="Hai cambiato modo di rilevamento: le due scale non coincidono, rifai la taratura.";
-  drawTrace();};
-$("#p-calgo").onclick=()=>startCalibration(false);
-function startCalibration(remote){
-  if(P.calibrating)return;
-  if(!P.analyser||!P.live){
-    const why="Non arriva audio dalla stanza: taratura annullata.";
-    if(remote)send({c:"calfail",why:why});
-    $("#p-calstate").textContent="non riuscita";$("#p-caltext").textContent=why;return;
-  }
-  if(P.ctx&&P.ctx.state==="suspended")P.ctx.resume();
-  P.calibrating=true;$("#p-calgo").disabled=true;
-  $("#p-calbarwrap").classList.remove("hide");
-  $("#p-calstate").textContent=remote?"avviata dalla stanza":"in ascolto";
-  const s=[];let n=0;const total=150;
-  const iv=setInterval(()=>{
-    if(!P.live){clearInterval(iv);P.calibrating=false;$("#p-calgo").disabled=false;
-      $("#p-calbarwrap").classList.add("hide");$("#p-calstate").textContent="interrotta";
-      send({c:"calfail",why:"Il collegamento è caduto durante la misura."});return;}
-    s.push(P.level);n++;
-    $("#p-calbar").style.width=(n/total*100)+"%";
-    $("#p-calgo").textContent="ascolto… "+Math.ceil((total-n)/10)+"s";
-    if(n>=total){
-      clearInterval(iv);s.sort((a,b)=>a-b);
-      P.base=Math.round(s[Math.floor(s.length*.9)]);
-      P.calibrating=false;
-      $("#p-calbarwrap").classList.add("hide");$("#p-calbar").style.width="0%";
-      $("#p-calgo").textContent="Rifai la taratura";$("#p-calgo").disabled=false;
-      applyCal(true);logEvent("taratura: fondo "+P.base);
-    }
-  },100);
-}
-function applyCal(notify){
-  P.thr=Math.min(95,Math.max(8,P.base+P.margin));
-  $("#p-thr").value=P.thr;$("#p-thrval").textContent=P.thr;
-  $("#p-calstate").textContent="fondo "+P.base;
-  const mode=P.detect==="band"?"banda del pianto":"volume totale";
-  $("#p-caltext").textContent="Fondo "+P.base+", soglia "+P.thr+", misurati sulla "+mode+". Rifalla se cambiano ventilatore, rumore bianco o posizione del dispositivo.";
-  drawTrace();
-  if(notify)send({c:"caldone",base:P.base,thr:P.thr,mode:mode});
-}
-/* avvisi */
-function checkAlert(){
-  const now=Date.now();
-  P.over=P.level>=P.thr?P.over+1:Math.max(0,P.over-2);
-  if(P.alerts&&P.over>70&&now-P.lastAlert>20000){P.lastAlert=now;P.over=0;fireAlert();}
-}
-function fireAlert(){
+function fire(){
   if(navigator.vibrate)navigator.vibrate([300,120,300,120,400]);
-  logEvent("rumore sopra soglia");
   const t=new Date().toLocaleTimeString("it-IT",{hour:"2-digit",minute:"2-digit"});
-  $("#p-last").textContent="ultimo alle "+t;
-  if(P.alarmKind==="off")return;
-  $("#p-bannert").textContent="rilevato alle "+t;
-  $("#p-banner").classList.add("on");playAlarm();
-  if(P.insist){clearInterval(P.alarmTimer);
-    P.alarmTimer=setInterval(()=>{playAlarm();if(navigator.vibrate)navigator.vibrate([250,150,250]);},4000);
-  }else setTimeout(hush,9000);
+  log("rumore sopra soglia");
+  if(P.alarm==="off")return;
+  $("#wake-s").textContent="rilevato alle "+t;
+  $("#wake").classList.add("on");
+  play();clearInterval(P.timer);
+  P.timer=setInterval(()=>{play();if(navigator.vibrate)navigator.vibrate([250,150,250]);},4000);
 }
-function hush(){clearInterval(P.alarmTimer);P.alarmTimer=null;$("#p-banner").classList.remove("on");}
-$("#p-hush").onclick=hush;
-function tone(f,st,dur,type,pk){
-  const o=P.ctx.createOscillator(),g=P.ctx.createGain(),t=P.ctx.currentTime+st;
-  o.type=type||"sine";o.frequency.setValueAtTime(f,t);
-  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(pk||.5,t+.03);
-  g.gain.exponentialRampToValueAtTime(.001,t+dur);
-  o.connect(g);g.connect(P.master);o.start(t);o.stop(t+dur+.05);
-}
-function playAlarm(){
-  if(!P.ctx||!P.master)return;
+function hush(){clearInterval(P.timer);P.timer=null;$("#wake").classList.remove("on");}
+$("#hush").onclick=hush;
+function play(){
+  if(!P.ctx||!P.gain)return;
   if(P.ctx.state==="suspended")P.ctx.resume();
-  if(P.alarmKind==="bip")[0,.35,.7].forEach(s=>tone(920,s,.22,"square",.35));
-  else if(P.alarmKind==="sirena"){
+  const t0=P.ctx.currentTime;
+  if(P.alarm==="bip"){
+    [0,.35,.7].forEach(s=>{
+      const o=P.ctx.createOscillator(),g=P.ctx.createGain(),t=t0+s;
+      o.type="square";o.frequency.setValueAtTime(920,t);
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.35,t+.03);
+      g.gain.exponentialRampToValueAtTime(.001,t+.24);
+      o.connect(g);g.connect(P.gain);o.start(t);o.stop(t+.3);
+    });
+  }else{
     for(let k=0;k<2;k++){
-      const t=P.ctx.currentTime+k*1.1,o=P.ctx.createOscillator(),g=P.ctx.createGain();
+      const t=t0+k*1.1,o=P.ctx.createOscillator(),g=P.ctx.createGain();
       o.type="sawtooth";o.frequency.setValueAtTime(480,t);
       o.frequency.linearRampToValueAtTime(980,t+.5);o.frequency.linearRampToValueAtTime(480,t+1);
       g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.3,t+.08);g.gain.linearRampToValueAtTime(0,t+1);
-      o.connect(g);g.connect(P.master);o.start(t);o.stop(t+1.05);
+      o.connect(g);g.connect(P.gain);o.start(t);o.stop(t+1.05);
     }
-  }else if(P.alarmKind==="campana")[0,.5,1].forEach(s=>{tone(1318,s,1.4,"triangle",.4);tone(1976,s,.9,"sine",.18);});
-}
-$("#p-alarmkind").onclick=e=>{const b=e.target.closest("button");if(!b)return;
-  segPick($("#p-alarmkind"),b);P.alarmKind=b.dataset.k;
-  $("#p-alarmstate").textContent=P.alarmKind==="off"?"spento":b.textContent.toLowerCase();
-  if(P.ctx&&P.ctx.state==="suspended")P.ctx.resume();
-  if(P.alarmKind!=="off")playAlarm();};
-$("#p-filter").onclick=e=>{const b=e.target.closest("button");if(!b)return;
-  segPick($("#p-filter"),b);P.filter=b.dataset.f==="on";applyFilter();};
-$("#p-lvol").oninput=function(){P.lvol=+this.value/100;
-  if(P.bg)$("#p-keep").volume=P.sound?P.lvol:0;
-  else if(P.listen&&P.sound)P.listen.gain.value=P.lvol;};
-$("#p-vol").oninput=function(){P.vol=+this.value/100;if(P.master)P.master.gain.value=P.vol;};
-$("#p-insist").onchange=function(){P.insist=this.checked;};
-function logEvent(txt){
-  const d=document.createElement("div");
-  d.textContent=new Date().toLocaleTimeString("it-IT",{hour:"2-digit",minute:"2-digit"})+"  ·  "+txt;
-  $("#p-log").prepend(d);
-  while($("#p-log").children.length>12)$("#p-log").lastChild.remove();
-}
-/* traccia */
-let peak=0;
-setInterval(()=>{if(P.level>peak)peak=P.level;},200);
-function pushHistory(){P.hist.push(P.live?peak:0);peak=0;if(P.hist.length>200)P.hist.shift();drawTrace();}
-function sizeCanvas(){
-  const c=$("#trace"),r=c.getBoundingClientRect(),dpr=window.devicePixelRatio||1;
-  if(!r.width)return;
-  c.width=r.width*dpr;c.height=62*dpr;c.getContext("2d").setTransform(dpr,0,0,dpr,0,0);drawTrace();
-}
-window.addEventListener("resize",()=>{if(!$("#p-monitor").classList.contains("hide"))sizeCanvas();});
-function drawTrace(){
-  const c=$("#trace");if(!c.width)return;
-  const x=c.getContext("2d"),w=c.width/(window.devicePixelRatio||1),h=62;
-  x.clearRect(0,0,w,h);
-  if(P.base!==null){const bh=(P.base/100)*(h-10);x.fillStyle="rgba(255,255,255,.08)";x.fillRect(0,(h-bh)/2,w,bh);}
-  const n=P.hist.length,bw=w/n;
-  for(let i=0;i<n;i++){
-    const v=P.hist[i]/100,bh=Math.max(2,v*(h-10)),bx=i*bw,bwid=Math.max(1.5,bw-1.6);
-    x.fillStyle=P.hist[i]>=P.thr?"#FF8FA8":"rgba(140,224,200,"+(0.3+v*0.7)+")";
-    x.beginPath();
-    if(x.roundRect)x.roundRect(bx,(h-bh)/2,bwid,bh,bwid/2);else x.rect(bx,(h-bh)/2,bwid,bh);
-    x.fill();
   }
-  x.strokeStyle="rgba(255,211,110,.55)";x.setLineDash([3,4]);x.beginPath();
-  const ty=(h-(P.thr/100)*(h-10))/2;x.moveTo(0,ty);x.lineTo(w,ty);x.stroke();x.setLineDash([]);
 }
-$("#p-thr").oninput=function(){P.thr=+this.value;$("#p-thrval").textContent=this.value;drawTrace();};
-$("#t-alert").onclick=function(){P.alerts=!P.alerts;this.classList.toggle("on",P.alerts);
-  $("#t-alert-s").textContent=P.alerts?"attivi":"spenti";if(!P.alerts)hush();
-  if(P.ctx&&P.ctx.state==="suspended")P.ctx.resume();};
-$("#t-sound").onclick=function(){P.sound=!P.sound;
-  if(P.bg)$("#p-keep").volume=P.sound?P.lvol:0;
-  else if(P.listen)P.listen.gain.value=P.sound?P.lvol:0;
-  this.classList.toggle("on",P.sound);$("#t-sound-s").textContent=P.sound?"acceso":"muto";};
-$("#t-night").onclick=function(){const on=$("#s-parent").classList.toggle("deep");this.classList.toggle("on",on);};
-const talk=$("#t-talk");
-function talkOn(e){e.preventDefault();if(P.micTrack){P.micTrack.enabled=true;talk.classList.add("live");talk.textContent="Ti sta ascoltando";}}
-function talkOff(){if(P.micTrack){P.micTrack.enabled=false;talk.classList.remove("live");talk.textContent="Tieni premuto per parlare";}}
-talk.addEventListener("pointerdown",talkOn);
-["pointerup","pointercancel","pointerleave"].forEach(ev=>talk.addEventListener(ev,talkOff));
+function log(m){
+  const d=document.createElement("div");
+  d.textContent=new Date().toLocaleTimeString("it-IT",{hour:"2-digit",minute:"2-digit"})+"  ·  "+m;
+  $("#p-log").prepend(d);
+  while($("#p-log").children.length>8)$("#p-log").lastChild.remove();
+}
+$("#p-thr").oninput=function(){P.thr=+this.value;$("#p-thrv").textContent=this.value;};
+$("#p-vol").oninput=function(){P.vol=+this.value/100;$("#p-in").volume=P.vol;};
+$("#p-alarm").onclick=e=>{
+  const b=e.target.closest("button");if(!b)return;
+  $("#p-alarm").querySelectorAll("button").forEach(x=>x.classList.remove("sel"));
+  b.classList.add("sel");P.alarm=b.dataset.k;$("#p-alv").textContent=b.textContent.toLowerCase();
+  if(P.ctx&&P.ctx.state==="suspended")P.ctx.resume();
+  if(P.alarm!=="off")play();
+};
+$("#p-dark").onclick=()=>$("#dark").classList.add("on");
+const ptt=$("#ptt");
+function on(e){e.preventDefault();if(P.micTrack){P.micTrack.enabled=true;ptt.classList.add("on");ptt.textContent="Ti sta ascoltando";}}
+function off(){if(P.micTrack){P.micTrack.enabled=false;ptt.classList.remove("on");ptt.textContent="Tieni premuto per parlare";}}
+ptt.addEventListener("pointerdown",on);
+["pointerup","pointercancel","pointerleave"].forEach(v=>ptt.addEventListener(v,off));
 })();
 </script>
 </body>
