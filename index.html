@@ -67,12 +67,6 @@ input.code::placeholder{color:#D9D2EC}
 #s-p.live-bg .chip{background:var(--night2);color:#fff;border-color:#fff;box-shadow:2px 2px 0 rgba(0,0,0,.4)}
 .hero{display:grid;place-items:center;padding:10px 0 2px}
 #ada{width:min(62vw,230px);transform:translateY(calc(var(--bob,0) * -1px));transition:transform .25s cubic-bezier(.3,1.4,.5,1)}
-#ada .zzz{opacity:var(--zop,1);transition:opacity .4s}
-#ada .shut{opacity:var(--shut,1)}
-#ada .open{opacity:var(--open,0)}
-.cloud{fill:#fff}
-#ada .cloud{transition:fill .3s}
-#ada.up .cloud{fill:var(--rosa)}
 #ada.up{animation:jig .5s ease-in-out infinite}
 #ada.off{filter:grayscale(1);opacity:.35}
 @keyframes jig{0%,100%{transform:translateY(-8px) rotate(-1.5deg)}50%{transform:translateY(-14px) rotate(1.5deg)}}
@@ -123,10 +117,10 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
 <symbol id="sym-ada" viewBox="0 0 120 116">
-  <g class="zzz" fill="#FFD36E" font-family="Zen Maru Gothic,sans-serif" font-weight="700">
+  <g class="zzz" style="opacity:var(--zop,1);transition:opacity .4s" fill="#FFD36E" font-family="Zen Maru Gothic,sans-serif" font-weight="700">
     <text x="86" y="30" font-size="14">z</text><text x="97" y="19" font-size="10">z</text><text x="105" y="11" font-size="7">z</text>
   </g>
-  <g class="cloud">
+  <g class="cloud" style="fill:var(--nuvola,#fff);transition:fill .3s">
     <rect x="14" y="88" width="92" height="22" rx="11"/><circle cx="38" cy="90" r="15"/>
     <circle cx="60" cy="84" r="20"/><circle cx="86" cy="91" r="13"/>
   </g>
@@ -141,12 +135,12 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
     <path d="M44.5 29.5l-4 8M47 30l-2.5 8.5"/>
   </g>
   <circle cx="45.5" cy="27.5" r="2.8" fill="#B08F5E"/>
-  <g class="shut">
+  <g class="shut" style="opacity:var(--shut,1)">
     <path d="M49.5 53.5q4.5 4.5 9 0M61.5 53.5q4.5 4.5 9 0" stroke="#1B1749" stroke-width="1.7" fill="none" stroke-linecap="round"/>
     <path d="M49.5 53.5l-2.6-2.2M70.5 53.5l2.6-2.2" stroke="#1B1749" stroke-width="1.5" fill="none" stroke-linecap="round"/>
     <path d="M55 63q5 3.6 10 0" stroke="#1B1749" stroke-width="1.7" fill="none" stroke-linecap="round"/>
   </g>
-  <g class="open">
+  <g class="open" style="opacity:var(--open,0)">
     <path d="M47.5 47.5l8.5-2.6M72.5 47.5l-8.5-2.6" stroke="#1B1749" stroke-width="1.6" fill="none" stroke-linecap="round"/>
     <ellipse cx="54" cy="54" rx="3.1" ry="3.9" fill="#1B1749"/><ellipse cx="66" cy="54" rx="3.1" ry="3.9" fill="#1B1749"/>
     <path d="M50.4 50.6l-2.4-2M69.6 50.6l2.4-2" stroke="#1B1749" stroke-width="1.5" fill="none" stroke-linecap="round"/>
@@ -167,7 +161,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
       <button class="btn giallo" id="go-r">Ascolta la stanza</button>
       <button class="btn sky" id="go-p" style="margin-top:12px">Ricevi</button>
     </div>
-    <div class="note">Per agganciarsi serve la linea internet; poi l'audio viaggia direttamente fra i due dispositivi.<br><br>Non è un dispositivo medico e non sostituisce la sorveglianza diretta.</div>
+    <div class="note">Funziona su reti diverse: 5G e Wi-Fi, anche fuori casa. Serve solo la linea internet.<br><br>Non è un dispositivo medico e non sostituisce la sorveglianza diretta.</div>
   </div>
 </section>
 
@@ -180,6 +174,10 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
     <div id="r-0">
       <h2>Il dispositivo che resta con la bambina</h2>
       <p>Accendo solo il microfono. Niente video: consuma poco e il collegamento regge molto meglio.</p>
+      <div style="margin:0 0 14px">
+        <div style="font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#6B65A5;margin-bottom:7px">codice — scegli tu</div>
+        <input class="code" id="r-mycode" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="0000" autocomplete="off">
+      </div>
       <button class="btn giallo" id="r-go">Accendi il microfono</button>
       <div class="err" id="r-err"></div>
     </div>
@@ -232,6 +230,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 
       <button class="ptt hide" id="ptt">Tieni premuto per parlare</button>
       <button class="btn sky" id="p-dark" style="margin-top:14px">Spegni lo schermo</button>
+      <p style="font-size:12px;color:#9C95D8;margin:14px 0 0">Con lo schermo spento o su un'altra app continui a sentire la stanza, ma l'allarme automatico resta fermo: riprende appena torni qui.</p>
       <div class="log" id="p-log"></div>
     </div>
   </div>
@@ -247,21 +246,40 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 "use strict";
 const $=s=>document.querySelector(s);
 const PREFIX="belladdormentada-";
-/* Relay pubblici: se il collegamento diretto non passa (reti mobili, router
-   restrittivi) l'audio viene instradato qui invece di cadere. */
+const U="42b844cf0aecbac8e749ce09",C="jf11ni2o16dUqGSm",H="standard.relay.metered.ca";
+/* Relay già configurato: il collegamento passa anche fra 5G e Wi-Fi diverse,
+   senza che ci sia nulla da impostare sui dispositivi. */
 const ICE=[
-  {urls:["stun:stun.l.google.com:19302","stun:stun1.l.google.com:19302"]},
-  {urls:"turn:openrelay.metered.ca:80",username:"openrelayproject",credential:"openrelayproject"},
-  {urls:"turn:openrelay.metered.ca:443",username:"openrelayproject",credential:"openrelayproject"},
-  {urls:"turn:openrelay.metered.ca:443?transport=tcp",username:"openrelayproject",credential:"openrelayproject"}
+  {urls:["stun:stun.relay.metered.ca:80","stun:stun.l.google.com:19302"]},
+  {urls:"turn:"+H+":80",username:U,credential:C},
+  {urls:"turn:"+H+":80?transport=tcp",username:U,credential:C},
+  {urls:"turn:"+H+":443",username:U,credential:C},
+  {urls:"turns:"+H+":443?transport=tcp",username:U,credential:C}
 ];
-const PEEROPT={debug:0,config:{iceServers:ICE,iceCandidatePoolSize:4}};
+function peerOpt(){return {debug:0,config:{iceServers:ICE,iceCandidatePoolSize:4}};}
+/* Dice come è realmente collegato: diretto o passando dal relay. */
+function probe(pc,report){
+  if(!pc||!pc.getStats)return;
+  setTimeout(()=>{
+    pc.getStats().then(st=>{
+      let pair=null,cand={};
+      st.forEach(r=>{
+        if(r.type==="candidate-pair"&&(r.selected||r.state==="succeeded")&&!pair)pair=r;
+        if(r.type==="local-candidate"||r.type==="remote-candidate")cand[r.id]=r;
+      });
+      if(!pair){report("percorso non identificato");return;}
+      const l=cand[pair.localCandidateId],r2=cand[pair.remoteCandidateId];
+      const rel=(l&&l.candidateType==="relay")||(r2&&r2.candidateType==="relay");
+      report(rel?"collegato via relay":"collegato in diretta");
+    }).catch(()=>{});
+  },5000);
+}
 function show(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("on"));$(id).classList.add("on");}
 function errBox(el,m){el.textContent=m;el.classList.toggle("on",!!m);}
 function stat(dot,txt,cls,label){dot.className="dot "+cls;txt.textContent=label;}
 let wl=null;
 async function wake(){try{if("wakeLock" in navigator)wl=await navigator.wakeLock.request("screen");}catch(e){}}
-document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"){wl=null;wake();}});
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"){wl=null;wake();if(typeof resume==="function")resume();}});
 function level(an,buf){
   an.getByteFrequencyData(buf);
   const bin=an.context.sampleRate/an.fftSize;
@@ -269,6 +287,7 @@ function level(an,buf){
   let s=0,pk=0;for(let i=a;i<=b;i++){s+=buf[i];if(buf[i]>pk)pk=buf[i];}
   return Math.max(0,Math.min(100,Math.round(((s/(b-a+1))*.6+pk*.4)/255*100)));
 }
+$("#r-mycode").oninput=function(){this.value=this.value.replace(/\D/g,"").slice(0,4);};
 $("#r-reset").onclick=()=>location.reload();
 $("#p-reset").onclick=()=>location.reload();
 $("#go-r").onclick=()=>show("#s-r");
@@ -277,7 +296,7 @@ $("#go-p").onclick=()=>{show("#s-p");setTimeout(()=>$("#p-code").focus(),100);};
 /* ════════ STANZA ════════ */
 /* più ricevitori insieme: uno per ogni genitore. Ognuno ha la sua voce nella
    mappa, così l'arrivo del secondo non chiude il primo. */
-const R={peer:null,stream:null,code:null,tries:0,hb:null,rx:new Map()};
+const R={peer:null,stream:null,code:null,wanted:null,tries:0,hb:null,rx:new Map()};
 function rxCount(){let n=0;R.rx.forEach(v=>{if(v.conn&&v.conn.open)n++;});return n;}
 function rxUpdate(){
   const n=rxCount();
@@ -294,6 +313,8 @@ $("#r-go").onclick=async function(){
   errBox($("#r-err"),"");
   if(!window.isSecureContext){errBox($("#r-err"),"Serve un indirizzo https per accedere al microfono.");return;}
   if(typeof Peer==="undefined"){errBox($("#r-err"),"Manca la libreria di collegamento: controlla la linea e ricarica.");return;}
+  const mine=($("#r-mycode").value||"").replace(/\D/g,"");
+  R.wanted=mine.length===4?mine:null;
   this.disabled=true;this.textContent="accensione…";
   try{
     R.stream=await navigator.mediaDevices.getUserMedia({audio:{
@@ -306,9 +327,9 @@ $("#r-go").onclick=async function(){
   wake();roomVU();openRoom();
 };
 function openRoom(){
-  if(!R.code)R.code=String(Math.floor(1000+Math.random()*9000));
+  if(!R.code)R.code=R.wanted||String(Math.floor(1000+Math.random()*9000));
   stat($("#r-dot"),$("#r-st"),"","registrazione…");
-  R.peer=new Peer(PREFIX+R.code,PEEROPT);
+  R.peer=new Peer(PREFIX+R.code,peerOpt());
   R.peer.on("open",()=>{
     $("#r-code").textContent=R.code;
     stat($("#r-dot"),$("#r-st"),"","in attesa · "+R.code);
@@ -328,8 +349,14 @@ function openRoom(){
   });
   R.peer.on("disconnected",()=>{try{R.peer.reconnect();}catch(e){}});
   R.peer.on("error",e=>{
-    if(e.type==="unavailable-id"&&R.tries<6){R.tries++;R.code=String(Math.floor(1000+Math.random()*9000));
-      try{R.peer.destroy();}catch(_){}setTimeout(openRoom,400);return;}
+    if(e.type==="unavailable-id"){
+      if(R.wanted&&R.tries===0){R.tries++;R.wanted=null;R.code=null;
+        try{R.peer.destroy();}catch(_){}
+        $("#r-sub").textContent="quel codice è occupato: ne uso un altro";
+        setTimeout(openRoom,400);return;}
+      if(R.tries<6){R.tries++;R.code=null;R.wanted=null;
+        try{R.peer.destroy();}catch(_){}setTimeout(openRoom,400);return;}
+    }
     if(e.type==="peer-unavailable")return;
     if(e.type==="network"||e.type==="server-error"||e.type==="socket-error"){
       $("#r-sub").textContent="Rete instabile, riprovo…";
@@ -383,7 +410,7 @@ $("#dark").onclick=()=>$("#dark").classList.remove("on");
 
 /* ════════ RICEVENTE ════════ */
 const P={peer:null,conn:null,call:null,room:null,mic:null,micTrack:null,on:false,
-  ctx:null,an:null,buf:null,gain:null,lvl:0,thr:40,vol:.85,over:0,last:0,
+  ctx:null,an:null,buf:null,gain:null,src:null,lvl:0,thr:40,vol:.85,over:0,last:0,
   alarm:"bip",timer:null,seen:0,alive:null};
 
 $("#p-code").oninput=function(){this.value=this.value.replace(/\D/g,"").slice(0,4);};
@@ -401,7 +428,7 @@ $("#p-go").onclick=async function(){
     P.micTrack=P.mic.getAudioTracks()[0];P.micTrack.enabled=false;
     $("#ptt").classList.remove("hide");
   }catch(e){}
-  P.peer=new Peer(PEEROPT);
+  P.peer=new Peer(peerOpt());
   P.peer.on("open",()=>{dial();P.alive=setInterval(guard,3000);});
   P.peer.on("disconnected",()=>{try{P.peer.reconnect();}catch(e){}});
   P.peer.on("error",e=>{
@@ -411,14 +438,44 @@ $("#p-go").onclick=async function(){
   P.peer.on("call",c=>{
     P.call=c;c.answer(P.mic||undefined);
     c.on("stream",s=>{
-      const a=$("#p-in");
-      if(a.srcObject!==s){a.srcObject=s;a.volume=P.vol;a.play().catch(()=>{});meter(s);}
+      attach(s);
       goLive();
     });
     c.on("close",()=>drop());
     c.on("error",()=>drop());
   });
 };
+/* Il browser mette in pausa la riproduzione quando la pagina va in secondo
+   piano. Ci riagganciamo ad ogni pausa e dichiariamo una sessione multimediale,
+   così il sistema tratta l'ascolto come una riproduzione in corso. */
+let kpOn=false;
+function attach(s){
+  const a=$("#p-in");
+  if(a.srcObject!==s){a.srcObject=s;meter(s);}
+  a.muted=false;a.volume=P.vol;
+  a.play().catch(()=>{});
+  keepPlaying();
+}
+function resume(){
+  const a=$("#p-in");
+  if(P.on&&a.paused)a.play().catch(()=>{});
+  if(P.ctx&&P.ctx.state==="suspended")P.ctx.resume();
+}
+function keepPlaying(){
+  if(kpOn)return;kpOn=true;
+  const a=$("#p-in");
+  a.addEventListener("pause",()=>{if(P.on)a.play().catch(()=>{});});
+  setInterval(resume,4000);
+  try{
+    if("mediaSession" in navigator){
+      if(window.MediaMetadata)navigator.mediaSession.metadata=new MediaMetadata({
+        title:"La caciotta addormentADA",artist:"ascolto della stanza"});
+      navigator.mediaSession.playbackState="playing";
+      navigator.mediaSession.setActionHandler("play",()=>{a.play().catch(()=>{});});
+      navigator.mediaSession.setActionHandler("pause",()=>{});
+    }
+  }catch(e){}
+}
 function dial(){
   if(P.conn){try{P.conn.close();}catch(e){}}
   P.conn=P.peer.connect(P.room,{reliable:true});
@@ -442,6 +499,7 @@ function goLive(){
   $("#p-0").classList.add("hide");$("#p-1").classList.remove("hide");
   $("#s-p").classList.add("live-bg");$("#ada").classList.remove("off");
   log("collegato");wake();
+  if(P.conn)probe(P.conn.peerConnection,m=>log(m));
 }
 function drop(){
   if(!P.on)return;
@@ -451,17 +509,24 @@ function drop(){
   $("#lost").classList.add("on");
   log("collegamento perso");
 }
+/* Ad ogni riaggancio arriva un flusso NUOVO: l'analizzatore va riagganciato a
+   quello, altrimenti resta attaccato al flusso morto e il livello resta a zero
+   mentre l'audio si sente lo stesso. */
 function meter(s){
-  if(P.ctx)return;
   try{
-    P.ctx=new (window.AudioContext||window.webkitAudioContext)();
+    if(!P.ctx){
+      P.ctx=new (window.AudioContext||window.webkitAudioContext)();
+      P.an=P.ctx.createAnalyser();P.an.fftSize=2048;P.an.smoothingTimeConstant=.6;
+      P.an.minDecibels=-90;P.an.maxDecibels=-25;
+      P.buf=new Uint8Array(P.an.frequencyBinCount);
+      P.gain=P.ctx.createGain();P.gain.gain.value=P.vol;P.gain.connect(P.ctx.destination);
+      tick();
+    }
     if(P.ctx.state==="suspended")P.ctx.resume();
-    P.an=P.ctx.createAnalyser();P.an.fftSize=2048;P.an.smoothingTimeConstant=.6;
-    P.an.minDecibels=-90;P.an.maxDecibels=-25;
-    P.buf=new Uint8Array(P.an.frequencyBinCount);
-    P.ctx.createMediaStreamSource(s).connect(P.an);
-    P.gain=P.ctx.createGain();P.gain.gain.value=P.vol;P.gain.connect(P.ctx.destination);
-    tick();
+    if(P.src){try{P.src.disconnect();}catch(e){}}
+    P.src=P.ctx.createMediaStreamSource(s);
+    P.src.connect(P.an);
+    P.lvl=0;P.over=0;
   }catch(e){}
 }
 const ada=$("#ada");
@@ -471,10 +536,11 @@ function tick(){
     const l=Math.round(P.lvl),hot=l>=P.thr;
     $("#p-lvl").textContent=l;$("#d-lvl").textContent=l;
     ada.style.setProperty("--bob",(l/100*20).toFixed(1));
-    ada.style.setProperty("--zop",hot?0:Math.max(.15,1-l/P.thr));
-    ada.style.setProperty("--shut",hot?0:1);
-    ada.style.setProperty("--open",hot?1:0);
+    ada.style.setProperty("--zop",hot?"0":String(Math.max(.15,1-l/P.thr)));
+    ada.style.setProperty("--shut",hot?"0":"1");
+    ada.style.setProperty("--open",hot?"1":"0");
     ada.classList.toggle("up",hot);
+    ada.style.setProperty("--nuvola",hot?"#FF8FA8":"#fff");
     const m=$("#p-mood");
     m.textContent=hot?"sveglia!":(l>P.thr*.8?"si gira":"quiete");
     m.classList.toggle("hot",hot);
